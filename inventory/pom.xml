@@ -12,14 +12,54 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+  	<mavem.compiler.target>1.8</mavem.compiler.target>
+  	<junit.version>4.12</junit.version>
+  	<assertj.version>3.27.3</assertj.version>
+  	<mockito.version>4.11.0</mockito.version>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+	<dependencies>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>${junit.version}</version>
+  		<scope>test</scope>
+  	</dependency>
+  	
+  	<dependency>
+  		<groupId>org.assertj</groupId>
+  		<artifactId>assertj-core</artifactId>
+  		<version>${assertj.version}</version>
+  		<scope>test</scope>
+  	</dependency>
+  	
+  	<dependency>
+  		<groupId>org.mockito</groupId>
+  		<artifactId>mockito-core</artifactId>
+  		<version>${mockito.version}</version>
+  		<scope>test</scope>
+  	</dependency>
   </dependencies>
+  
+  <build>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.pitest</groupId>
+  			<artifactId>pitest-maven</artifactId>
+  			<version>1.5.2</version>
+  			<configuration>
+  				<targetClasses>
+  					<param>com.example.inventory.*</param>
+  				</targetClasses>
+  				<targetTests>
+  					<param>com.example.inventory.*Test</param>
+  				</targetTests>
+  				<mutators>
+  					<mutator>STRONGER</mutator>
+  				</mutators>
+  			</configuration>
+  		</plugin>
+  	</plugins>
+  </build>
 </project>
