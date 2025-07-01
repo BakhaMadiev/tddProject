@@ -6,11 +6,11 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         java: [8, 11]
-        os: [ubuntu-latest, macis-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - name: Checkout code
