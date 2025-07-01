@@ -6,7 +6,6 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         java: [8, 11]
@@ -14,6 +13,8 @@ jobs:
       exclude:
         - java: 8
           os: macos-latest
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout code
