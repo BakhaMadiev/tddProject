@@ -35,6 +35,7 @@ jobs:
             ${{ runner.os }}-m2-
 
       - name: Build with Maven
+        shell: bash
         run: |
            EXTRA_ARGS=""
            if [[ "${{ matrix.os }}" == "ubuntu-latest" && "${{ matrix.java }}" == "8" ]]; then
