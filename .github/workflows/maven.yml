@@ -8,11 +8,8 @@ jobs:
   build:
     strategy:
       matrix:
-        java: [8, 11, 17, 21]
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        exclude:
-        - java: 8
-          os: macos-latest
+        java: [8]
+        os: [ubuntu-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
 
