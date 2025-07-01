@@ -13,7 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
-  	<mavem.compiler.target>1.8</mavem.compiler.target>
+  	<maven.compiler.target>1.8</maven.compiler.target>
   	<junit.version>4.12</junit.version>
   	<assertj.version>3.27.3</assertj.version>
   	<mockito.version>4.11.0</mockito.version>
@@ -55,10 +55,41 @@
   				<targetTests>
   					<param>com.example.inventory.*Test</param>
   				</targetTests>
+  				<excludedClasses>
+  					<param>com.example.inventory.model.*</param>
+				</excludedClasses>
   				<mutators>
   					<mutator>STRONGER</mutator>
   				</mutators>
   			</configuration>
+  		</plugin>
+  		
+  		<!--JaCoCo configuration-->
+  		<plugin>
+  			<groupId>org.jacoco</groupId>
+  			<artifactId>jacoco-maven-plugin</artifactId>
+  			<version>0.8.5</version>
+  			<executions>
+  				<execution>
+  					<id>prepare-agent</id>
+  					<goals>
+  						<goal>prepare-agent</goal>
+  					</goals>
+  				</execution>
+  				<execution>
+  					<id>report</id>
+  					<phase>verify</phase>
+  					<goals>
+  						<goal>report</goal>
+  					</goals>
+	  				<configuration>
+	  					<excludes>
+	  						<exclude>**/Book.*</exclude>
+	  						<exclude>**/Author.*</exclude>
+	  					</excludes>
+	  				</configuration>
+  				</execution>
+  			</executions>
   		</plugin>
   	</plugins>
   </build>
