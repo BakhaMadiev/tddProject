@@ -6,20 +6,21 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matix.os }}}
     strategy:
       matrix:
         java: [8, 11]
+        os: [ubuntu-latest, macis-latest, windows-latest]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up JDK ${{ matrix.java }}
+          
+      - name: Build with Java ${{ matix.java }} on ${{ matrix.os }}
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: ${{ matrix.java }}
+           distribution: 'temurin'
+           java-version: ${{ matrix.java }}
 
       - name: Cache Maven packages
         uses: actions/cache@v4
