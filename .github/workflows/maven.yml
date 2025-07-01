@@ -8,26 +8,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-       matrix:
-          # test in several Java versions:
-          java: [8, 11]
+      matrix:
+        java: [8, 11]
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Build with Java ${{matrix.java}}
-      steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK ${{matrix.java}}
-         uses: actions/setup-java@v1
-         with:
-            java-version: ${{matrix.java}}
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
 
       - name: Cache Maven packages
         uses: actions/cache@v4
-        with: 
-           path: ~/.m2
-           key: ${{ runner.os }} -m2-${{ hashFiles('**/pom.xml', '**/*.yml')}}
-           restore-keys: ${{runner.os}}-m2-
-      
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml', '**/*.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-m2-
+
       - name: Build with Maven
         run: mvn -f inventory/pom.xml clean verify
