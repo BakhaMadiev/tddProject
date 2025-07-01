@@ -35,7 +35,12 @@ jobs:
             ${{ runner.os }}-m2-
 
       - name: Build with Maven
-        run: mvn -f inventory/pom.xml clean verify surefire-report:report-only site:site -DgenerateReports=false
+        run: |
+           EXTRA_ARGS=""
+           if [["${{ matrix.os }}" == "ubuntu-latest" && "{{ matrix.java }}" == "8"]]; then
+           EXTRA_ARGS="-Pjacoco"
+           fi
+           mvn -f inventory/pom.xml clean verify surefire-report:report-only site:site -DgenerateReports=false $EXTRA_ARGS
         
       - name: Archive JUnit Reports
         uses: actions/upload-artifact@v4
