@@ -1,4 +1,4 @@
-nam: Java CI with Maven in Linux
+name: Java CI with Maven in Linux
 
 on:
    push:
