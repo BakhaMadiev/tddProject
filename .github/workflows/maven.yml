@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matix.os }}}
+    runs-on: ${{ matrix.os }}}
     strategy:
       matrix:
         java: [8, 11]
