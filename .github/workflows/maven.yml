@@ -36,10 +36,12 @@ jobs:
 
       - name: Build with Maven
         shell: bash
+        env:
+           COVERALLS_REPO_TOKEN: ${{ secret.COVERALLS_REPORT }}
         run: |
            EXTRA_ARGS=""
            if [[ "${{ matrix.os }}" == "ubuntu-latest" && "${{ matrix.java }}" == "8" ]]; then
-              EXTRA_ARGS="-Pjacoco"
+              EXTRA_ARGS="-Pjacoco -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report"
            fi
            mvn -f inventory/pom.xml clean verify surefire-report:report-only site:site -DgenerateReports=false $EXTRA_ARGS
         
