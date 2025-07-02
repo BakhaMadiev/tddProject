@@ -1,1 +1,1 @@
-[![Java CI with Maven in Linux](https://github.com/BakhaMadiev/tddProject/actions/workflows/maven.yml/badge.svg)](https://github.com/BakhaMadiev/tddProject/actions/workflows/maven.yml)
+[![Java CI with Maven in Linux](https://github.com/BakhaMadiev/tddProject/actions/workflows/maven.yml/badge.svg)](https://github.com/BakhaMadiev/tddProject/actions/workflows/maven.yml)(https://github.com/BakhaMadiev/tddProject/actions)
