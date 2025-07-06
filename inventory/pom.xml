@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -162,5 +162,55 @@
   		</build>
   	</profile>
   	
+  	<profile>
+  		<id>docker</id>
+  		<build>
+  			<plugins>
+  				<plugin>
+  					<groupId>io.fabric8</groupId>
+  					<artifactId>docker-maven-plugin</artifactId>
+  					<version>0.34.1</version>
+  					<configuration>
+  						<showLogs>true</showLogs>
+  						<verbose>build</verbose>
+  						<images>
+  							<image>
+  								<name>java-inventory-app</name>
+  								<build>
+  									<contextDir>${project.basedir}</contextDir>
+  									<args>
+  										<JAR_FILE>${project.artifactId}-${project.version}.jar</JAR_FILE>
+  									</args>
+  								</build>
+  								<run>
+  									<wait>
+  										<log>Hello World!</log>
+  										<time>10000</time>
+  									</wait>
+  								</run>
+  							</image>
+  						</images>
+  					</configuration>
+  					<executions>
+  						<execution>
+  							<id>docker-build-image</id>
+  							<phase>package</phase>
+  							<goals>
+  								<goal>build</goal>
+  							</goals>
+  						</execution>
+  						<execution>
+  							<id>docker-verify</id>
+  							<phase>verify</phase>
+  							<goals>
+  								<goal>start</goal>
+  								<goal>stop</goal>
+  							</goals>
+  						</execution>
+  					</executions>
+  				</plugin>
+  			</plugins>
+  		</build>
+  	</profile>
   </profiles>
 </project>
