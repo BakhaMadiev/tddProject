@@ -6,16 +6,20 @@ on:
 
 jobs: 
    build: 
-      runs-on: macos-latest
+      runs-on: macos-13
       
       name: Build in macOS
       steps: 
       - uses: actions/checkout@v4
-      - name: Setup JDK 11
+      - name: Setup JDK 8
         uses: actions/setup-java@v4
         with: 
-           java-version: 11
+           java-version: 8
            distribution: 'temurin'
+      - name: Install Docker
+        uses: docker/setup-docker-action@v4.3.0
+        with:
+           set-host: true
       - name: Cache Maven packages
         uses: actions/cache@v4
         with: 
