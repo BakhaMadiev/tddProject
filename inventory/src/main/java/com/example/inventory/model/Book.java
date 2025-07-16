@@ -7,8 +7,6 @@ public class Book {
 	private String title;
 	private Author author;
 	
-	public Book() {}
-	
 	public Book(String id, String title, Author author) {
 		this.id = id;
 		this.title= title; 

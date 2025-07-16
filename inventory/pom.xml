@@ -40,6 +40,32 @@
   		<version>${mockito.version}</version>
   		<scope>test</scope>
   	</dependency>
+  	
+  	<dependency>
+  		<groupId>org.mongodb</groupId>
+  		<artifactId>mongo-java-driver</artifactId>
+  		<version>3.12.7</version>
+  	</dependency>
+  	
+  	<dependency>
+  		<groupId>ch.qos.logback</groupId>
+	  	<artifactId>logback-classic</artifactId>
+	  	<version>1.2.3</version>
+  	</dependency>
+  	
+  	<dependency>
+  		<groupId>org.testcontainers</groupId>
+  		<artifactId>testcontainers</artifactId>
+  		<version>1.21.0</version>
+  		<scope>test</scope>
+  	</dependency>
+  	
+  	<dependency>
+		<groupId>org.testcontainers</groupId>
+		<artifactId>mongodb</artifactId>
+		<version>1.21.0</version>
+  	</dependency>
+  	
   </dependencies>
   
   <build>
@@ -84,6 +110,7 @@
   					</goals>
 	  				<configuration>
 	  					<excludes>
+	  						<exclude>**/MainApp.*</exclude>
 	  						<exclude>**/Book.*</exclude>
 	  						<exclude>**/Author.*</exclude>
 	  					</excludes>
@@ -91,6 +118,104 @@
   				</execution>
   			</executions>
   		</plugin>
+  		
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-assembly-plugin</artifactId>
+  			<executions>
+  				<execution>
+  					<phase>package</phase>
+  					<goals>
+  						<goal>single</goal>
+  					</goals>
+  					<configuration>
+  						<descriptorRefs>
+  							<descriptorRef>jar-with-dependencies</descriptorRef>
+  						</descriptorRefs>
+  						<archive>
+  							<manifest>
+  								<mainClass>com.example.inventory.MainApp</mainClass>
+  							</manifest>
+  						</archive>
+  					</configuration>
+  				</execution>
+  			</executions>
+  		</plugin>
+  		
+  		
+  		
+  		<plugin>
+	  			<groupId>org.codehaus.mojo</groupId>
+	  			<artifactId>build-helper-maven-plugin</artifactId>
+	  			<version>3.0.0</version>
+	  			<executions>
+	  				<execution>
+	  					<id>add-test-source</id>
+	  					<phase>generate-test-sources</phase>
+	  					<goals>
+	  						<goal>add-test-source</goal>
+	  					</goals>
+	  					<configuration>
+	  						<sources>
+	  							<source>src/it/java</source>
+	  						</sources>
+	  					</configuration>
+	  				</execution>
+	  			</executions>
+	  		</plugin>
+	  		
+	  		<plugin>
+	  			<groupId>org.apache.maven.plugins</groupId>
+	  			<artifactId>maven-failsafe-plugin</artifactId>
+	  			<version>3.5.3</version>
+	  			<configuration>
+	  				<systemPropertyVariables>
+	  					<mongo.port>${mongo.mapped.port}</mongo.port>
+	  				</systemPropertyVariables>
+	  			</configuration>
+	  			<executions>
+	  				<execution>
+	  					<goals>
+	  						<goal>integration-test</goal>
+	  						<goal>verify</goal>
+	  					</goals>
+	  				</execution>
+	  			</executions>
+  			</plugin>
+	  		
+	  		<plugin>
+	  			<groupId>io.fabric8</groupId>
+	  			<artifactId>docker-maven-plugin</artifactId>
+	  			<version>0.46.0</version>
+	  			<configuration>
+	  				<images>
+	  					<image>
+	  						<name>mongo:5</name>
+	  						<run>
+	  							<ports>
+	  								<port>mongo.mapped.port:27017</port>
+	  							</ports>
+	  						</run>
+	  					</image>
+	  				</images>
+	  			</configuration>
+	  			<executions>
+	  				<execution>
+	  					<id>docker-start</id>
+	  					<phase>pre-integration-test</phase>
+	  					<goals>
+	  						<goal>start</goal>
+	  					</goals>
+	  				</execution>
+	  				<execution>
+	  					<id>docker-stop</id>
+	  					<phase>post-integration-test</phase>
+	  					<goals>
+	  						<goal>stop</goal>
+	  					</goals>
+	  				</execution>
+	  			</executions>
+	  		</plugin>
   	</plugins>
   	
   	<pluginManagement>
@@ -118,6 +243,9 @@
 	  				</dependency>
 	  			</dependencies>
 	  		</plugin>
+	  		
+	  		
+	  		
   		</plugins>
   	</pluginManagement>
   </build>
@@ -169,26 +297,43 @@
   				<plugin>
   					<groupId>io.fabric8</groupId>
   					<artifactId>docker-maven-plugin</artifactId>
-  					<version>0.34.1</version>
   					<configuration>
-  						<showLogs>true</showLogs>
-  						<verbose>build</verbose>
   						<images>
-  							<image>
-  								<name>java-inventory-app</name>
-  								<build>
-  									<contextDir>${project.basedir}</contextDir>
-  									<args>
-  										<JAR_FILE>${project.artifactId}-${project.version}.jar</JAR_FILE>
-  									</args>
-  								</build>
-  								<run>
-  									<wait>
-  										<log>Hello World!</log>
-  										<time>10000</time>
-  									</wait>
-  								</run>
-  							</image>
+							<image>
+								<name>java-inventory-app</name>
+								
+								<run>
+									<network>
+										<mode>custom</mode>
+										<name>my-network-1</name>
+									</network>
+									<wait>
+										<log>Hello World!</log>
+										<time>30000</time>
+									</wait>
+									<dependsOn>
+										<container>mongo</container>
+									</dependsOn>
+									<cmd>
+										<arg>mongo</arg>
+									</cmd>
+								</run>
+							</image>
+							<image>
+								<name>mongo:5</name>
+								<alias>mongo</alias>
+								<run>
+									<network>
+										<mode>custom</mode>
+										<name>my-network-1</name>
+										<alias>mongo</alias>
+									</network>
+									<wait>
+										<log>Waiting for connections</log>
+										<time>30000</time>
+									</wait>
+								</run>
+							</image>
   						</images>
   					</configuration>
   					<executions>
@@ -208,6 +353,35 @@
   							</goals>
   						</execution>
   					</executions>
+  				</plugin>
+  			</plugins>
+  		</build>
+  	</profile>
+  	
+  	<profile>
+  		<id>docker-compose</id>
+  		<build>
+  			<plugins>
+  				<plugin>
+  					<groupId>io.fabric8</groupId>
+  					<artifactId>docker-maven-plugin</artifactId>
+  					<configuration>
+  						<images>
+  							<image>
+  								<alias>app</alias>
+  								<external>
+  									<type>compose</type>
+  									<basedir>${project.basedir}</basedir>
+  								</external>
+  								<run>
+  									<wait>
+  										<log>Hello World!</log>
+  										<time>10000</time>
+  									</wait>
+  								</run>
+  							</image>
+  						</images>
+  					</configuration>
   				</plugin>
   			</plugins>
   		</build>
