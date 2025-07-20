@@ -54,5 +54,10 @@ public class Book {
 		return Objects.equals(author, other.author) && Objects.equals(id, other.id)
 				&& Objects.equals(title, other.title);
 	}
+	
+	@Override
+	public String toString() {
+		return title + " (" + (author != null ? author.toString() : "Unknown Author");
+	}
 
 }
