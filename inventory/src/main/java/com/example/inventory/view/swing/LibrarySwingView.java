@@ -236,11 +236,9 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 		
 		listAuthorModels = new DefaultListModel<>();
 		authorList = new JList<>(listAuthorModels);
-		authorList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				authorDeleteButton.setEnabled(authorList.getSelectedIndex() != -1);
-			}
-		});
+		authorList.addListSelectionListener(e ->
+			authorDeleteButton.setEnabled(authorList.getSelectedIndex() != -1)
+		);
 		scrollPane_1.setViewportView(authorList);
 		authorList.setName("authorList");
 		authorList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -394,11 +392,9 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 
 		listBookModels = new DefaultListModel<>();
 		bookList = new JList<>(listBookModels);
-		bookList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				bookDeleteButton.setEnabled(bookList.getSelectedIndex() != -1);
-			}
-		});
+		bookList.addListSelectionListener(e ->
+				bookDeleteButton.setEnabled(bookList.getSelectedIndex() != -1)
+		);
 		scrollPane.setViewportView(bookList);
 		bookList.setName("bookList");
 		bookList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
