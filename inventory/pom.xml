@@ -24,7 +24,7 @@
 	<sonar.issue.ignore.multicriteria.e12.ruleKey>java:S117</sonar.issue.ignore.multicriteria.e12.ruleKey>
 	<sonar.issue.ignore.multicriteria.e12.resourceKey>**/LibrarySwingView.java</sonar.issue.ignore.multicriteria.e12.resourceKey>
 	<sonar.issue.ignore.multicriteria.e13.ruleKey>java:S2699</sonar.issue.ignore.multicriteria.e13.ruleKey>
-	<sonar.issue.ignore.multicriteria.e13.resourceKey>**/*View*.java</sonar.issue.ignore.multicriteria.e13.resourceKey>
+	<sonar.issue.ignore.multicriteria.e13.resourceKey>**/*View.java</sonar.issue.ignore.multicriteria.e13.resourceKey>
 	
 	<sonar.coverage.exclusions>**/model/*.java, **/MainApp.java</sonar.coverage.exclusions>
   </properties>
