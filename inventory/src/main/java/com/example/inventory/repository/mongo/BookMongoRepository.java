@@ -43,7 +43,7 @@ public class BookMongoRepository implements BookRepository{
 	@Override
 	public Book findById(String id) {
 		Document d = bookCollection.find(Filters.eq("id", id)).first();
-		return null;
+		return fromDocumentToBook(d);
 	}
 
 	@Override

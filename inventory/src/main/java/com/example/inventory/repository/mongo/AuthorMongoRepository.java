@@ -37,7 +37,7 @@ public class AuthorMongoRepository implements AuthorRepository{
 	@Override
 	public Author findById(String id) {
 		Document d = authorCollection.find(Filters.eq("id", id)).first();
-		return null;
+		return fromDocumentToAuthor(d);
 	}
 
 	@Override
