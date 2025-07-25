@@ -33,10 +33,6 @@ public class BookMongoRepository implements BookRepository{
 	private Book fromDocumentToBook(Document d) {
 		Document authorDoc = (Document) d.get("author");
 		Author author = null;
-		if(authorDoc != null) {
-			author = new Author("" + authorDoc.get("id"), "" + authorDoc.get("firstName"), "" + authorDoc.get("lastName"));
-		}
-		
 		return new Book("" + d.get("id"), ""+d.get("title"), author);
 	}
 
