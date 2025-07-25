@@ -423,9 +423,9 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 
 	@Override
 	public void showError(String message, Author author) {
-		SwingUtilities.invokeLater(() -> {
-			authorErrorLabel.setText(message + ": " + author);			
-		});
+		SwingUtilities.invokeLater(() -> 
+			authorErrorLabel.setText(message + ": " + author)
+		);
 	}
 
 	@Override
@@ -451,9 +451,9 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 
 	@Override
 	public void showError(String message, Book book) {
-		SwingUtilities.invokeLater(() -> {
-			bookErrorLabel.setText(message + ": " + book);			
-		});
+		SwingUtilities.invokeLater(() -> 
+			bookErrorLabel.setText(message + ": " + book)		
+		);
 	}
 
 	@Override
