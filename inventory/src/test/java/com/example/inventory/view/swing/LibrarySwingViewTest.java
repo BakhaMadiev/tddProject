@@ -201,6 +201,9 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
 		
 		//start with filling up name text box
+		authorIdTextBox.setText("");
+		authorNameTextBox.setText("");
+		authorSurnameTextBox.setText("");
 		
 		authorNameTextBox.enterText(" ");
 		authorIdTextBox.enterText(" ");
@@ -270,75 +273,79 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		authorSurnameTextBox.enterText("Last Name");
 		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
 		
-		//start with filling up surname text box
+		//start filling up from surname text box	
+		authorIdTextBox.setText("");
+		authorNameTextBox.setText("");
+		authorSurnameTextBox.setText("");
 
 		authorSurnameTextBox.enterText(" ");
-		authorIdTextBox.enterText(" ");
 		authorNameTextBox.enterText(" ");
+		authorIdTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorNameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorSurnameTextBox.enterText("Last Name");
-		authorIdTextBox.enterText(" ");
 		authorNameTextBox.enterText("Name");
+		authorIdTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorNameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorSurnameTextBox.enterText("Last Name");
-		authorIdTextBox.enterText("1");
 		authorNameTextBox.enterText(" ");
+		authorIdTextBox.enterText("1");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorNameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorSurnameTextBox.enterText(" ");
-		authorIdTextBox.enterText("1");
 		authorNameTextBox.enterText("Name");
+		authorIdTextBox.enterText("1");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorNameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorSurnameTextBox.enterText("Last Name");
-		authorIdTextBox.enterText(" ");
 		authorNameTextBox.enterText(" ");
+		authorIdTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorNameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorSurnameTextBox.enterText(" ");
+		authorNameTextBox.enterText(" ");
 		authorIdTextBox.enterText("1");
-		authorNameTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorNameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorSurnameTextBox.enterText(" ");
-		authorIdTextBox.enterText(" ");
 		authorNameTextBox.enterText("Name");
+		authorIdTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorNameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorSurnameTextBox.enterText("Last Name");
-		authorIdTextBox.enterText("1");
 		authorNameTextBox.enterText("Name");
+		authorIdTextBox.enterText("1");
 		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
+
 	}
 	
 	@Test

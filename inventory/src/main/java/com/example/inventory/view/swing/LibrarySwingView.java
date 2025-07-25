@@ -148,8 +148,8 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 			@Override
 			public void keyReleased(KeyEvent e) {
 				addAuthorButton.setEnabled(
+					!authorNameTextBox.getText().trim().isEmpty() &&
 					!authorIdTextBox.getText().trim().isEmpty() && 
-					!authorNameTextBox.getText().trim().isEmpty() && 
 					!authorSurnameTextBox.getText().trim().isEmpty());
 				}
 		});
@@ -175,11 +175,12 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 			@Override
 			public void keyReleased(KeyEvent e) {
 				addAuthorButton.setEnabled(
-					!authorIdTextBox.getText().trim().isEmpty() && 
-					!authorNameTextBox.getText().trim().isEmpty() && 
-					!authorSurnameTextBox.getText().trim().isEmpty());
-				}
-			});
+					!authorSurnameTextBox.getText().trim().isEmpty() &&
+					!authorNameTextBox.getText().trim().isEmpty() &&
+					!authorIdTextBox.getText().trim().isEmpty()
+				);
+			}
+		});
 		authorSurnameTextBox.setName("authorSurnameTextBox");
 		authorSurnameTextBox.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
