@@ -41,7 +41,6 @@ public class BookMongoRepository implements BookRepository{
 		return new Book("" + d.get("id"), ""+d.get("title"), author);
 	}
 	
-	@SuppressWarnings("squid:S2583") 
 	@Override
 	public Book findById(String id) {
 		Document d = bookCollection.find(Filters.eq("id", id)).first();
