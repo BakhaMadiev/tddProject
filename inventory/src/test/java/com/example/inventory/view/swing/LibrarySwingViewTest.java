@@ -202,75 +202,75 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		
 		//start with filling up name text box
 		authorIdTextBox.setText("");
-		authorNameTextBox.setText("");
 		authorSurnameTextBox.setText("");
+		authorNameTextBox.setText("");
 		
 		authorNameTextBox.enterText(" ");
-		authorIdTextBox.enterText(" ");
 		authorSurnameTextBox.enterText(" ");
+		authorIdTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorSurnameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorNameTextBox.enterText("Name");
-		authorIdTextBox.enterText(" ");
 		authorSurnameTextBox.enterText("Last Name");
+		authorIdTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorSurnameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorNameTextBox.enterText(" ");
-		authorIdTextBox.enterText("1");
 		authorSurnameTextBox.enterText("Last Name");
+		authorIdTextBox.enterText("1");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorSurnameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorNameTextBox.enterText("Name");
-		authorIdTextBox.enterText("1");
 		authorSurnameTextBox.enterText(" ");
+		authorIdTextBox.enterText("1");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorSurnameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorNameTextBox.enterText(" ");
-		authorIdTextBox.enterText(" ");
 		authorSurnameTextBox.enterText("Last Name");
+		authorIdTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorSurnameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorNameTextBox.enterText(" ");
-		authorIdTextBox.enterText("1");
 		authorSurnameTextBox.enterText(" ");
+		authorIdTextBox.enterText("1");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorSurnameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorNameTextBox.enterText("Name");
+		authorSurnameTextBox.enterText(" ");
 		authorIdTextBox.enterText(" ");
-		authorSurnameTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
 		authorSurnameTextBox.setText("");
+		authorIdTextBox.setText("");
 
 		authorNameTextBox.enterText("Name");
-		authorIdTextBox.enterText("1");
 		authorSurnameTextBox.enterText("Last Name");
+		authorIdTextBox.enterText("1");
 		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
 		
 		//start filling up from surname text box	
