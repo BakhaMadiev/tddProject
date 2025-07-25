@@ -18,7 +18,7 @@
   	<assertj.version>3.27.3</assertj.version>
   	<mockito.version>4.11.0</mockito.version>
   	
-	<sonar.issue.ignore.multicriteria>e11,e12,13</sonar.issue.ignore.multicriteria>
+	<sonar.issue.ignore.multicriteria>e11,e12,e13</sonar.issue.ignore.multicriteria>
 	<sonar.issue.ignore.multicriteria.e11.ruleKey>java:S110</sonar.issue.ignore.multicriteria.e11.ruleKey>
 	<sonar.issue.ignore.multicriteria.e11.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e11.resourceKey>
 	<sonar.issue.ignore.multicriteria.e12.ruleKey>java:S117</sonar.issue.ignore.multicriteria.e12.ruleKey>
