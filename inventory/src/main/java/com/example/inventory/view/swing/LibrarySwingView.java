@@ -26,8 +26,6 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
 
 public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 
