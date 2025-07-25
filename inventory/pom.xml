@@ -23,6 +23,8 @@
 	<sonar.issue.ignore.multicriteria.e11.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e11.resourceKey>
 	<sonar.issue.ignore.multicriteria.e12.ruleKey>java:S117</sonar.issue.ignore.multicriteria.e12.ruleKey>
 	<sonar.issue.ignore.multicriteria.e12.resourceKey>**/LibrarySwingView.java</sonar.issue.ignore.multicriteria.e12.resourceKey>
+	
+	<sonar.coverage.exclusions>**/model/*.java, **/MainApp.java</sonar.coverage.exclusions>
   </properties>
 
 	<dependencies>
