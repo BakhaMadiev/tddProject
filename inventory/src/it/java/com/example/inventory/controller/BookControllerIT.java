@@ -18,7 +18,6 @@ import com.example.inventory.repository.BookRepository;
 import com.example.inventory.repository.mongo.BookMongoRepository;
 import com.example.inventory.view.BookView;
 import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
 
 /**
  * To start mongoDB container need to run this command
@@ -33,6 +32,8 @@ public class BookControllerIT {
 	private BookRepository repo;
 	private BookController controller;
 	
+	public static final String LIBRARY_DB_NAME = "library";
+	public static final String BOOK_COLLECTION_NAME = "book";
 	private AutoCloseable closeable;
 	
 	private static int mongoPort = Integer.parseInt(System.getProperty("mongo.port", "27017"));
@@ -40,7 +41,7 @@ public class BookControllerIT {
 	@Before
 	public void setUp() {
 		closeable = MockitoAnnotations.openMocks(this);
-		repo = new BookMongoRepository(new MongoClient(new ServerAddress("localhost", mongoPort)));
+		repo = new BookMongoRepository(new MongoClient("localhost", mongoPort), LIBRARY_DB_NAME, BOOK_COLLECTION_NAME);
 		for(Book book: repo.findAll()) {
 			repo.delete(book.getId());
 		}

@@ -1,6 +1,5 @@
 package com.example.inventory.view.swing;
 
-import java.awt.EventQueue;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -14,13 +13,12 @@ import com.example.inventory.model.Book;
 import com.example.inventory.view.AuthorView;
 import com.example.inventory.view.BookView;
 import javax.swing.JLabel;
-import java.awt.CardLayout;
-import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -28,8 +26,6 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 
@@ -69,24 +65,8 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 	private JList<Book> bookList;
 	private DefaultListModel<Book> listBookModels;
 	
-	private AuthorController authorController;
-	private BookController bookController;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LibrarySwingView frame = new LibrarySwingView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private transient  AuthorController authorController;
+	private transient BookController bookController;
 	
 	DefaultListModel<Author> getListOfAuthorModels(){
 		return listAuthorModels;
@@ -143,9 +123,9 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 			@Override
 			public void keyReleased(KeyEvent e) {
 				addAuthorButton.setEnabled(
-						!authorIdTextBox.getText().trim().isEmpty() && 
-						!authorNameTextBox.getText().trim().isEmpty() && 
-						!authorSurnameTextBox.getText().trim().isEmpty());
+					!authorIdTextBox.getText().trim().isEmpty() && 
+					!authorNameTextBox.getText().trim().isEmpty() && 
+					!authorSurnameTextBox.getText().trim().isEmpty());
 			}
 		});
 		authorIdTextBox.setName("authorIdTextBox");
@@ -170,10 +150,10 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 			@Override
 			public void keyReleased(KeyEvent e) {
 				addAuthorButton.setEnabled(
-						!authorIdTextBox.getText().trim().isEmpty() && 
-						!authorNameTextBox.getText().trim().isEmpty() && 
-						!authorSurnameTextBox.getText().trim().isEmpty());
-			}
+					!authorIdTextBox.getText().trim().isEmpty() && 
+					!authorNameTextBox.getText().trim().isEmpty() && 
+					!authorSurnameTextBox.getText().trim().isEmpty());
+				}
 		});
 		authorNameTextBox.setName("authorNameTextBox");
 		authorNameTextBox.setColumns(10);
@@ -197,11 +177,11 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 			@Override
 			public void keyReleased(KeyEvent e) {
 				addAuthorButton.setEnabled(
-						!authorIdTextBox.getText().trim().isEmpty() && 
-						!authorNameTextBox.getText().trim().isEmpty() && 
-						!authorSurnameTextBox.getText().trim().isEmpty());
-			}
-		});
+					!authorIdTextBox.getText().trim().isEmpty() && 
+					!authorNameTextBox.getText().trim().isEmpty() && 
+					!authorSurnameTextBox.getText().trim().isEmpty());
+				}
+			});
 		authorSurnameTextBox.setName("authorSurnameTextBox");
 		authorSurnameTextBox.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -213,14 +193,20 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 		
 		addAuthorButton = new JButton("Add Author");
 		addAuthorButton.addActionListener(
-				e -> authorController.newAuthor(
-						new Author(
-							authorIdTextBox.getText(), 
-							authorNameTextBox.getText(), 
-							authorSurnameTextBox.getText()
-						)
-					)
+			e -> new Thread(() -> {
+				try {
+					Thread.sleep(1000);
+				}catch (InterruptedException ex) {
+					Thread.currentThread().interrupt();
+				}
+				authorController.newAuthor(
+					new Author(
+						authorIdTextBox.getText(), 
+						authorNameTextBox.getText(), 
+						authorSurnameTextBox.getText())
 				);
+			}).start()
+		);
 		addAuthorButton.setEnabled(false);
 		addAuthorButton.setName("addAuthorButton");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -344,7 +330,7 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 		gbc_lblNewLabel_8.gridy = 11;
 		contentPane.add(bookAuthorLabel, gbc_lblNewLabel_8);
 		
-		bookAuthorComboBox = new JComboBox();
+		bookAuthorComboBox = new JComboBox<>();
 		bookAuthorComboBox.addActionListener(e -> {
 			Object selectedAuthor = bookAuthorComboBox.getSelectedItem();
 			addBookButton.setEnabled(
@@ -364,13 +350,20 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 		
 		addBookButton = new JButton("Add Book");
 		addBookButton.addActionListener(
-			e -> bookController.newBook(
-				new Book(
-					bookIdTextBox.getText(), 
-					bookTitleTextBox.getText(), 
-					(Author) bookAuthorComboBox.getSelectedItem()
-				)
-			)
+			e -> new Thread(() -> {
+				try {
+					Thread.sleep(1000);
+				}catch (InterruptedException ex) {
+					Thread.currentThread().interrupt();
+				}
+				bookController.newBook((
+						new Book(
+								bookIdTextBox.getText(), 
+								bookTitleTextBox.getText(), 
+								(Author) bookAuthorComboBox.getSelectedItem()
+							)
+					));
+			}).start()
 		);
 		addBookButton.setEnabled(false);
 		addBookButton.setName("addBookButton");
@@ -430,21 +423,22 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 
 	@Override
 	public void showError(String message, Author author) {
-		// TODO Auto-generated method stub
-		authorErrorLabel.setText(message + ": " + author);
+		SwingUtilities.invokeLater(() -> {
+			authorErrorLabel.setText(message + ": " + author);			
+		});
 	}
 
 	@Override
 	public void authorAdded(Author author) {
-		// TODO Auto-generated method stub
-		listAuthorModels.addElement(author);
-		updateBookAuthorComboBox();
-		resetAuthorErrorLabel();
+		SwingUtilities.invokeLater(() -> {
+			listAuthorModels.addElement(author);
+			updateBookAuthorComboBox();
+			resetAuthorErrorLabel();			
+		});
 	}
 
 	@Override
 	public void authorRemoved(Author author) {
-		// TODO Auto-generated method stub
 		listAuthorModels.removeElement(author);
 		updateBookAuthorComboBox();
 		resetAuthorErrorLabel();
@@ -452,26 +446,26 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 
 	@Override
 	public void showAllBooks(List<Book> books) {
-		// TODO Auto-generated method stub
 		books.stream().forEach(listBookModels::addElement);
 	}
 
 	@Override
 	public void showError(String message, Book book) {
-		// TODO Auto-generated method stub
-		bookErrorLabel.setText(message + ": " + book);
+		SwingUtilities.invokeLater(() -> {
+			bookErrorLabel.setText(message + ": " + book);			
+		});
 	}
 
 	@Override
 	public void bookAdded(Book book) {
-		// TODO Auto-generated method stub
-		listBookModels.addElement(book);
-		resetBookErrorLabel();
+		SwingUtilities.invokeLater(() -> {
+			listBookModels.addElement(book);
+			resetBookErrorLabel();
+		});
 	}
 
 	@Override
 	public void bookRemoved(Book book) {
-		// TODO Auto-generated method stub
 		listBookModels.removeElement(book);
 		resetBookErrorLabel();
 	}

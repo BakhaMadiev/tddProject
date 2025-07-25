@@ -1,6 +1,7 @@
 package com.example.inventory.view.swing;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
@@ -13,7 +14,6 @@ import org.assertj.swing.core.matcher.JLabelMatcher;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
 import org.assertj.swing.fixture.JButtonFixture;
-import org.assertj.swing.fixture.JComboBoxFixture;
 import org.assertj.swing.fixture.JTextComponentFixture;
 import org.assertj.swing.junit.testcase.AssertJSwingJUnitTestCase;
 import org.junit.Test;
@@ -26,6 +26,8 @@ import com.example.inventory.model.Author;
 import com.example.inventory.model.Book;
 
 public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
+	
+	private static final int TIMEOUT = 5000;
 	
 	private FrameFixture window;
 	
@@ -117,7 +119,7 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 			
 		});
 		
-		window.comboBox("bookAuthorComboBox").requireSelection("Name Last Name");
+		window.comboBox("bookAuthorComboBox").requireSelection("a1 Name Last Name");
 		window.button(JButtonMatcher.withText("Add Book")).requireEnabled();
 	}
 	
@@ -200,7 +202,6 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	public void testWhenEitherBookIdOrBookTitleOrBookAuthorFieldAreBlankThenAddButtonShouldBeDisabled() {
 		JTextComponentFixture bookIdTextBox = window.textBox("bookIdTextBox");
 		JTextComponentFixture bookTitleTextBox = window.textBox("bookTitleTextBox");
-		JComboBoxFixture bookAuthorComboBox = window.comboBox("bookAuthorComboBox");
 		JButtonFixture addBookButton = window.button(JButtonMatcher.withText("Add Book"));
 		
 		Author author = new Author("a1", "Name", "Last Name");
@@ -369,14 +370,14 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	@Test
 	public void testShowErrorShouldShowTheMessageInTheAuthorErrorLabel() {
 		Author a1 = new Author("1", "Fyodor", "Dostoevsky");
-		GuiActionRunner.execute(() -> swingView.showError("error message", a1));
+		swingView.showError("error message", a1);
 		window.label("authorErrorMessageLabel").requireText("error message: " + a1);
 	}
 	
 	@Test
 	public void testAuthorAddedShouldAddTheAuthorToTheListAndResetTheErrorLabel() {
 		Author a1 = new Author("1", "Fyodor", "Dostoevsky");
-		GuiActionRunner.execute(() -> swingView.authorAdded(new Author ("1", "Fyodor", "Dostoevsky")));
+		swingView.authorAdded(new Author ("1", "Fyodor", "Dostoevsky"));
 		String[] authorListContents = window.list("authorList").contents();
 		assertThat(authorListContents).containsExactly(a1.toString());
 		window.label("authorErrorMessageLabel").requireText(" ");
@@ -402,16 +403,16 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	@Test
 	public void testShowErrorShouldShowTheMessageInTheBookErrorLabel() {
 		Book b = new Book("1", "Book Title", new Author("1", "Fyoudor", "Dostoevsky"));
-		GuiActionRunner.execute(() -> swingView.showError("error message", b));
+		swingView.showError("error message", b);
 		window.label("bookErrorMessageLabel").requireText("error message: " + b);
 	}
 	
 	@Test
 	public void testBookAddedShouldAddTheBookToTheListAndResetTheErrorLabel() {
 		Book b = new Book("1", "Book Title", new Author("1", "Fyoudor", "Dostoevsky"));
-		GuiActionRunner.execute(() -> swingView.bookAdded(
-				new Book("1", "Book Title", new Author("1", "Fyoudor", "Dostoevsky"))
-			));
+		swingView.bookAdded(
+			new Book("1", "Book Title", new Author("1", "Fyoudor", "Dostoevsky"))
+		);
 		String[] bookListContents = window.list("bookList").contents();
 		assertThat(bookListContents).containsExactly(b.toString());
 		window.label("bookErrorMessageLabel").requireText(" ");
@@ -441,7 +442,7 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorNameTextBox").enterText("Leo");
 		window.textBox("authorSurnameTextBox").enterText("Tolstoy");
 		window.button(JButtonMatcher.withText("Add Author")).click();
-		verify(authorController).newAuthor(new Author("1", "Leo", "Tolstoy"));
+		verify(authorController, timeout(TIMEOUT)).newAuthor(new Author("1", "Leo", "Tolstoy"));
 	}
 	
 	@Test
@@ -469,7 +470,7 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		});
 		
 		window.button(JButtonMatcher.withText("Add Book")).click();
-		verify(bookController).newBook(new Book("1", "Book Title", new Author("a1", "Leo", "Tolstoy")));
+		verify(bookController, timeout(TIMEOUT)).newBook(new Book("1", "Book Title", new Author("a1", "Leo", "Tolstoy")));
 	}
 	
 	@Test

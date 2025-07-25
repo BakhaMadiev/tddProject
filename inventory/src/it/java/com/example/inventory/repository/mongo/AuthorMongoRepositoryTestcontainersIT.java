@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static com.example.inventory.repository.mongo.AuthorMongoRepository.LIBRARY_DB_NAME;
-import static com.example.inventory.repository.mongo.AuthorMongoRepository.AUTHOR_COLLECTION_NAME;
-
 import org.bson.Document;
 import org.junit.After;
 import org.junit.Before;
@@ -29,13 +26,16 @@ public class AuthorMongoRepositoryTestcontainersIT {
 	
 	private MongoClient client;
 	private AuthorMongoRepository repo;
-	private MongoCollection<Document> collection;
+	private MongoCollection<Document> collection;	
+
+	public static final String LIBRARY_DB_NAME = "library";
+	public static final String AUTHOR_COLLECTION_NAME = "author";
 	
 	@Before
 	public void setup() {
 		client = new MongoClient(
 				new ServerAddress(mongo.getHost(), mongo.getFirstMappedPort()));
-		repo = new AuthorMongoRepository(client);
+		repo = new AuthorMongoRepository(client, LIBRARY_DB_NAME, AUTHOR_COLLECTION_NAME);
 		MongoDatabase database = client.getDatabase(LIBRARY_DB_NAME);
 		database.drop();
 		collection = database.getCollection(AUTHOR_COLLECTION_NAME);

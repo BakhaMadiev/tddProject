@@ -1,7 +1,5 @@
 package com.example.inventory.repository.mongo;
 
-import static com.example.inventory.repository.mongo.BookMongoRepository.BOOK_COLLECTION_NAME;
-import static com.example.inventory.repository.mongo.BookMongoRepository.LIBRARY_DB_NAME;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
@@ -30,13 +28,16 @@ public class BookMongoRepoisotoryTestcontainersIT {
 	private MongoClient client;
 	private BookMongoRepository repo;
 	private MongoCollection<Document> collection;
+	
+	public static final String LIBRARY_DB_NAME = "library";
+	public static final String BOOK_COLLECTION_NAME = "book";
 
 	@Before
 	public void setUp(){
 		client = new MongoClient(
 				new ServerAddress(mongo.getHost(), mongo.getFirstMappedPort())
 			);
-		repo = new BookMongoRepository(client);
+		repo = new BookMongoRepository(client, LIBRARY_DB_NAME, BOOK_COLLECTION_NAME);
 		MongoDatabase database = client.getDatabase(LIBRARY_DB_NAME);
 		database.drop();
 		collection = database.getCollection(BOOK_COLLECTION_NAME);				

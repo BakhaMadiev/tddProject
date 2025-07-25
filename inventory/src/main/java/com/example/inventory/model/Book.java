@@ -57,7 +57,7 @@ public class Book {
 	
 	@Override
 	public String toString() {
-		return title + " (" + (author != null ? author.toString() : "Unknown Author");
+		return id + " " + title + " (" + (author != null ? author.toString() : "Unknown Author") + ")";
 	}
 
 }

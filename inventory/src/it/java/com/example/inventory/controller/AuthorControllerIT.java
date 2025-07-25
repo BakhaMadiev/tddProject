@@ -17,7 +17,6 @@ import com.example.inventory.repository.AuthorRepository;
 import com.example.inventory.repository.mongo.AuthorMongoRepository;
 import com.example.inventory.view.AuthorView;
 import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
 
 /**
  * To start mongoDB container need to run this command
@@ -30,7 +29,10 @@ public class AuthorControllerIT {
 	@Mock
 	private AuthorView view;
 	private AuthorRepository repo;
-	private AuthorController controller;
+	private AuthorController controller;	
+
+	public static final String LIBRARY_DB_NAME = "library";
+	public static final String AUTHOR_COLLECTION_NAME = "author";
 	
 	private AutoCloseable closeable;
 	
@@ -39,7 +41,7 @@ public class AuthorControllerIT {
 	@Before
 	public void setUp() {
 		closeable = MockitoAnnotations.openMocks(this);
-		repo = new AuthorMongoRepository(new MongoClient(new ServerAddress("localhost", mongoPort)));
+		repo = new AuthorMongoRepository(new MongoClient("localhost", mongoPort), LIBRARY_DB_NAME, AUTHOR_COLLECTION_NAME);
 		for(Author author: repo.findAll()) {
 			repo.delete(author.getId());
 		}

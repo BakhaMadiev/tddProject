@@ -20,8 +20,8 @@ public class BookMongoRepository implements BookRepository{
 	
 	private MongoCollection<Document> bookCollection;
 	
-	public BookMongoRepository(MongoClient client) {
-		bookCollection = client.getDatabase(LIBRARY_DB_NAME).getCollection(BOOK_COLLECTION_NAME);
+	public BookMongoRepository(MongoClient client, String databaseName, String collectionName) {
+		bookCollection = client.getDatabase(databaseName).getCollection(collectionName);
 	}
 
 	@Override
