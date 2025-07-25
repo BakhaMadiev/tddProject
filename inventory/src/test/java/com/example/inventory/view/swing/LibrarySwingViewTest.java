@@ -215,8 +215,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		authorIdTextBox.setText("");
 
 		authorNameTextBox.enterText("Name");
-		authorSurnameTextBox.enterText("Last Name");
 		authorIdTextBox.enterText(" ");
+		authorSurnameTextBox.enterText("Last Name");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorNameTextBox.setText("");
@@ -233,8 +233,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		authorIdTextBox.setText("");
 
 		authorNameTextBox.enterText("Name");
-		authorSurnameTextBox.enterText(" ");
 		authorIdTextBox.enterText("1");
+		authorSurnameTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorNameTextBox.setText("");
@@ -251,8 +251,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		authorIdTextBox.setText("");
 
 		authorNameTextBox.enterText(" ");
-		authorSurnameTextBox.enterText(" ");
 		authorIdTextBox.enterText("1");
+		authorSurnameTextBox.enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorNameTextBox.setText("");
@@ -269,8 +269,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		authorIdTextBox.setText("");
 
 		authorNameTextBox.enterText("Name");
-		authorSurnameTextBox.enterText("Last Name");
 		authorIdTextBox.enterText("1");
+		authorSurnameTextBox.enterText("Last Name");
 		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
 		
 		//start filling up from surname text box	
