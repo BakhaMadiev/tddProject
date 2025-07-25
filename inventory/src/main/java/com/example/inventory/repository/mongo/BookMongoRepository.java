@@ -1,6 +1,7 @@
 package com.example.inventory.repository.mongo;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -43,7 +44,7 @@ public class BookMongoRepository implements BookRepository{
 	@Override
 	public Book findById(String id) {
 		Document d = bookCollection.find(Filters.eq("id", id)).first();
-		if(d == null) {
+		if(Objects.isNull(d)) {
 			return null;
 		}
 		return fromDocumentToBook(d);

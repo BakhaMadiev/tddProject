@@ -1,6 +1,7 @@
 package com.example.inventory.repository.mongo;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -37,7 +38,7 @@ public class AuthorMongoRepository implements AuthorRepository{
 	@Override
 	public Author findById(String id) {
 		Document d = authorCollection.find(Filters.eq("id", id)).first();
-		if (d == null) {
+		if (Objects.isNull(d)) {
 			return null;
 		}
 		return fromDocumentToAuthor(d);
