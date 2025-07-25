@@ -7,8 +7,6 @@ public class Book {
 	private String title;
 	private Author author;
 	
-	public Book() {}
-	
 	public Book(String id, String title, Author author) {
 		this.id = id;
 		this.title= title; 
@@ -55,6 +53,11 @@ public class Book {
 		Book other = (Book) obj;
 		return Objects.equals(author, other.author) && Objects.equals(id, other.id)
 				&& Objects.equals(title, other.title);
+	}
+	
+	@Override
+	public String toString() {
+		return id + " " + title + " (" + (author != null ? author.toString() : "Unknown Author") + ")";
 	}
 
 }

@@ -58,5 +58,10 @@ public class Author {
 		return Objects.equals(firstName, other.firstName) && Objects.equals(id, other.id)
 				&& Objects.equals(lastName, other.lastName);
 	}
+		
+	@Override
+	public String toString() {
+		return id + " " + firstName + " " + lastName;
+	}
 	
 }
