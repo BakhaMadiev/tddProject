@@ -79,6 +79,17 @@ public class BookMongoRepoisotoryTestcontainersIT {
 		assertThat(readAllBooksFromDatabase()).isEmpty();
 	}
 	
+	@Test
+	public void testBookWithNullAuthor() {
+		Document book = new Document().append("id", "3").append("title", "book_with_null_author");
+		collection.insertOne(book);
+		
+		Book bookToFind = repo.findById("3");
+		assertThat(bookToFind.getId()).isEqualTo("3");
+		assertThat(bookToFind.getTitle()).isEqualTo("book_with_null_author");
+		assertThat(bookToFind.getAuthor()).isNull();
+	}
+	
 	private void addTestBookToDatabase(String id, String title, String authorId, String authorName, String authorSurname) {
 		Document authorDoc = new Document()
 				.append("id", authorId)
