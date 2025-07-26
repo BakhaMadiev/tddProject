@@ -233,9 +233,18 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		authorSurnameTextBox.setText("");
 		authorIdTextBox.setText("");
 
-		authorNameTextBox.enterText("Name");
 		authorIdTextBox.enterText("1");
-		authorSurnameTextBox.enterText("          ");
+		authorNameTextBox.enterText("Name");
+		authorSurnameTextBox.enterText("");
+		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
+
+		authorIdTextBox.setText("");
+		authorNameTextBox.setText("");
+		authorSurnameTextBox.setText("");
+		//with spaces in surname
+		authorIdTextBox.enterText("1");
+		authorNameTextBox.enterText("Name");
+		authorSurnameTextBox.enterText("             ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 
 		authorNameTextBox.setText("");
