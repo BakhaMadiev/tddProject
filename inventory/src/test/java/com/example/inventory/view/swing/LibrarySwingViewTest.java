@@ -2,6 +2,7 @@ package com.example.inventory.view.swing;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
@@ -732,5 +733,38 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		testThread.start();
 		testThread.join();
 	}
+	
+	@Test
+	public void testAddAuthorButtonHandlesInterriptedException() throws Exception{
+		GuiActionRunner.execute(() -> swingView.setAddSleepMs(2000));
+		window.textBox("authorIdTextBox").enterText("1");
+		window.textBox("authorNameTextBox").enterText("Test Interrupt");
+		window.textBox("authorSurnameTextBox").enterText("Test Interrupt");
+		window.button(JButtonMatcher.withText("Add Author")).click();
+		
+		assertThat(swingView.lastAddAuthorThread).isNotNull();
+		swingView.lastAddAuthorThread.interrupt();
+		swingView.lastAddAuthorThread.join(TIMEOUT);
+		verify(authorController, timeout(TIMEOUT)).newAuthor(new Author("1", "Test Interrupt", "Test Interrupt"));
+	}
+	
+	@Test
+	public void testAddBookButtonHandlesInterriptedException() throws Exception{
+		GuiActionRunner.execute(() -> swingView.setAddSleepMs(2000));
+		window.textBox("bookIdTextBox").enterText("1");
+		window.textBox("bookTitleTextBox").enterText("Book Title Interrupt testing");
+		Author author = new Author("a1", "Leo", "Tolstoy");
+		GuiActionRunner.execute(() -> {
+			swingView.getBookAuthorComboBox().addItem(author);
+			swingView.getBookAuthorComboBox().setSelectedItem(author);
+		});
+		window.button(JButtonMatcher.withText("Add Book")).click();
+		
+		assertThat(swingView.lastAddBookThread).isNotNull();
+		swingView.lastAddBookThread.interrupt();		
+		swingView.lastAddBookThread.join(TIMEOUT);		
+		verify(bookController, never()).newBook(new Book("1", "Book Title Interrupt testing", author));
+	}
+	
 
 }

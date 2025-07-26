@@ -66,6 +66,11 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 	private transient  AuthorController authorController;
 	private transient BookController bookController;
 	
+	Thread lastAddAuthorThread;
+	Thread lastAddBookThread;
+	
+	private int sleepMs = 1000;
+	
 	DefaultListModel<Author> getListOfAuthorModels(){
 		return listAuthorModels;
 	}
@@ -80,6 +85,10 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 	
 	public void setBookController(BookController bookController) {
 		this.bookController = bookController;
+	}
+	
+	public void setAddSleepMs(int ms) {
+		this.sleepMs = ms;
 	}
 
 	/**
@@ -193,19 +202,23 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 		
 		addAuthorButton = new JButton("Add Author");
 		addAuthorButton.addActionListener(
-			e -> new Thread(() -> {
-				try {
-					Thread.sleep(1000);
-				}catch (InterruptedException ex) {
-					Thread.currentThread().interrupt();
-				}
-				authorController.newAuthor(
-					new Author(
-						authorIdTextBox.getText(), 
-						authorNameTextBox.getText(), 
-						authorSurnameTextBox.getText())
-				);
-			}).start()
+			e -> { 
+				lastAddAuthorThread = new Thread(() -> {
+					try {
+						Thread.sleep(sleepMs);
+					}catch (InterruptedException ex) {
+						Thread.currentThread().interrupt();
+					}
+					authorController.newAuthor(
+						new Author(
+							authorIdTextBox.getText(), 
+							authorNameTextBox.getText(), 
+							authorSurnameTextBox.getText())
+					);
+				});
+			
+				lastAddAuthorThread.start();
+			}
 		);
 		addAuthorButton.setEnabled(false);
 		addAuthorButton.setName("addAuthorButton");
@@ -348,20 +361,25 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 		
 		addBookButton = new JButton("Add Book");
 		addBookButton.addActionListener(
-			e -> new Thread(() -> {
-				try {
-					Thread.sleep(1000);
-				}catch (InterruptedException ex) {
-					Thread.currentThread().interrupt();
-				}
-				bookController.newBook((
-						new Book(
+			e ->  { 
+				lastAddBookThread = new Thread(() -> {
+					try {
+						Thread.sleep(sleepMs);
+					}catch (InterruptedException ex) {
+						Thread.currentThread().interrupt();
+						return;
+					}
+					bookController.newBook((
+							new Book(
 								bookIdTextBox.getText(), 
 								bookTitleTextBox.getText(), 
 								(Author) bookAuthorComboBox.getSelectedItem()
 							)
 					));
-			}).start()
+				});
+				
+				lastAddBookThread.start();
+			}
 		);
 		addBookButton.setEnabled(false);
 		addBookButton.setName("addBookButton");
