@@ -66,8 +66,8 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 	private transient  AuthorController authorController;
 	private transient BookController bookController;
 	
-	Thread lastAddAuthorThread;
-	Thread lastAddBookThread;
+	transient Thread lastAddAuthorThread;
+	transient Thread lastAddBookThread;
 	
 	private int sleepMs = 1000;
 	
