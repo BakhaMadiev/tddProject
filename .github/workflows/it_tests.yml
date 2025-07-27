@@ -30,7 +30,7 @@ jobs:
            xvfb-run mvn verify -Pjacoco sonar:sonar
            -Dsonar.organization=bakhamadiev-github
            -Dsonar.host.url=https://sonarcloud.io
-           -Dsonar.login=$SONAR_TOKEN"
+           -Dsonar.login=$SONAR_TOKEN
         working-directory: inventory
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB.TOKEN }}
