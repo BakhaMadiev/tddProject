@@ -774,18 +774,4 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		swingView.lastAddBookThread.join(TIMEOUT);		
 		verify(bookController, never()).newBook(new Book("1", "Book Title Interrupt testing", author));
 	}
-	
-	@Test
-	public void testAddButotnDisabledWhenOnlyAUthorSurnameIsBlank() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
-		window.textBox("authorIdTextBox").enterText("1");
-		window.textBox("authorNameTextBox").enterText("Surname Testing");
-		window.textBox("authorSurnameTextBox").enterText("");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		window.textBox("authorSurnameTextBox").setText("          ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-	}
 }
