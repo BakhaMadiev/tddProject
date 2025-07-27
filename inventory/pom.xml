@@ -344,9 +344,15 @@
 						<version>0.8.5</version>
 						<configuration>
 							<excludes>
-							<exclude>**/MainApp.*</exclude>
+								<exclude>**/MainApp.*</exclude>
 								<exclude>**/Book.*</exclude>
 								<exclude>**/Author.*</exclude>
+								<exclude>java/*</exclude>
+								<exclude>javax/*</exclude>
+								<exclude>sun/*</exclude>
+								<exclude>com/sun/*</exclude>
+								<exclude>jdk/*</exclude>
+								<exclude>oracle/*</exclude>
 							</excludes>
 						</configuration>
 						<executions>
