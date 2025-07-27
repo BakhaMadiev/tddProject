@@ -16,6 +16,7 @@ import org.assertj.swing.finder.WindowFinder;
 import org.assertj.swing.fixture.FrameFixture;
 import org.bson.Document;
 
+import com.example.inventory.bdd.LibrarySwingAppBDD;
 import com.mongodb.MongoClient;
 
 import io.cucumber.java.After;
@@ -36,7 +37,7 @@ public class LibrarySwingAppSteps {
 	
 	@Before
 	public void setUp() {
-		mongoClient = new MongoClient();
+		mongoClient = new MongoClient("localhost", LibrarySwingAppBDD.mongoPort);
 		mongoClient.getDatabase(DB_NAME).drop();
 	}
 	
@@ -79,6 +80,7 @@ public class LibrarySwingAppSteps {
 	@When("The Library View is shown")
 	public void the_Library_View_is_shown() {
 		application("com.example.inventory.MainApp").withArgs(
+			"--mongo-port=" + LibrarySwingAppBDD.mongoPort,
 			"--db-name=" + DB_NAME,
 			"--db-author-collection=" + AUTHOR_COLLECTION_NAME,
 			"--db-book-collection=" + BOOK_COLLECTION_NAME
