@@ -1,5 +1,7 @@
 package com.example.inventory.controller;
 
+import static org.mockito.ArgumentMatchers.contains;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 import java.util.Collections;
@@ -88,5 +90,12 @@ public class BookControllerIT {
 	public void testShowAllBookWhenEmpty() {
 		controller.allBooks();
 		verify(view).showAllBooks(eq(Collections.emptyList()));
+	}
+	
+	@Test
+	public void testDeleteNonExistingBook() {
+		Book b = new Book("1", "Title", new Author("a1", "Name", "Surname"));
+		controller.deleteBook(b);
+		verify(view).showError(contains("Cannot delete - no book with id: " + b.getId()), eq(b));
 	}
 }

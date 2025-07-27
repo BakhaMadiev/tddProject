@@ -26,8 +26,6 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
 
 public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 
@@ -68,6 +66,11 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 	private transient  AuthorController authorController;
 	private transient BookController bookController;
 	
+	transient Thread lastAddAuthorThread;
+	transient Thread lastAddBookThread;
+	
+	private int sleepMs = 1000;
+	
 	DefaultListModel<Author> getListOfAuthorModels(){
 		return listAuthorModels;
 	}
@@ -82,6 +85,10 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 	
 	public void setBookController(BookController bookController) {
 		this.bookController = bookController;
+	}
+	
+	public void setAddSleepMs(int ms) {
+		this.sleepMs = ms;
 	}
 
 	/**
@@ -150,9 +157,10 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 			@Override
 			public void keyReleased(KeyEvent e) {
 				addAuthorButton.setEnabled(
-					!authorIdTextBox.getText().trim().isEmpty() && 
-					!authorNameTextBox.getText().trim().isEmpty() && 
-					!authorSurnameTextBox.getText().trim().isEmpty());
+						!authorNameTextBox.getText().trim().isEmpty() &&
+						!authorIdTextBox.getText().trim().isEmpty() &&
+						!authorSurnameTextBox.getText().trim().isEmpty()
+					);
 				}
 		});
 		authorNameTextBox.setName("authorNameTextBox");
@@ -177,11 +185,12 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 			@Override
 			public void keyReleased(KeyEvent e) {
 				addAuthorButton.setEnabled(
-					!authorIdTextBox.getText().trim().isEmpty() && 
-					!authorNameTextBox.getText().trim().isEmpty() && 
-					!authorSurnameTextBox.getText().trim().isEmpty());
-				}
-			});
+					!authorSurnameTextBox.getText().trim().isEmpty() &&
+					!authorNameTextBox.getText().trim().isEmpty() &&
+					!authorIdTextBox.getText().trim().isEmpty()
+				);
+			}
+		});
 		authorSurnameTextBox.setName("authorSurnameTextBox");
 		authorSurnameTextBox.setColumns(10);
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
@@ -193,19 +202,23 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 		
 		addAuthorButton = new JButton("Add Author");
 		addAuthorButton.addActionListener(
-			e -> new Thread(() -> {
-				try {
-					Thread.sleep(1000);
-				}catch (InterruptedException ex) {
-					Thread.currentThread().interrupt();
-				}
-				authorController.newAuthor(
-					new Author(
-						authorIdTextBox.getText(), 
-						authorNameTextBox.getText(), 
-						authorSurnameTextBox.getText())
-				);
-			}).start()
+			e -> { 
+				lastAddAuthorThread = new Thread(() -> {
+					try {
+						Thread.sleep(sleepMs);
+					}catch (InterruptedException ex) {
+						Thread.currentThread().interrupt();
+					}
+					authorController.newAuthor(
+						new Author(
+							authorIdTextBox.getText(), 
+							authorNameTextBox.getText(), 
+							authorSurnameTextBox.getText())
+					);
+				});
+			
+				lastAddAuthorThread.start();
+			}
 		);
 		addAuthorButton.setEnabled(false);
 		addAuthorButton.setName("addAuthorButton");
@@ -236,11 +249,9 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 		
 		listAuthorModels = new DefaultListModel<>();
 		authorList = new JList<>(listAuthorModels);
-		authorList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				authorDeleteButton.setEnabled(authorList.getSelectedIndex() != -1);
-			}
-		});
+		authorList.addListSelectionListener(e ->
+			authorDeleteButton.setEnabled(authorList.getSelectedIndex() != -1)
+		);
 		scrollPane_1.setViewportView(authorList);
 		authorList.setName("authorList");
 		authorList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -350,20 +361,25 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 		
 		addBookButton = new JButton("Add Book");
 		addBookButton.addActionListener(
-			e -> new Thread(() -> {
-				try {
-					Thread.sleep(1000);
-				}catch (InterruptedException ex) {
-					Thread.currentThread().interrupt();
-				}
-				bookController.newBook((
-						new Book(
+			e ->  { 
+				lastAddBookThread = new Thread(() -> {
+					try {
+						Thread.sleep(sleepMs);
+					}catch (InterruptedException ex) {
+						Thread.currentThread().interrupt();
+						return;
+					}
+					bookController.newBook((
+							new Book(
 								bookIdTextBox.getText(), 
 								bookTitleTextBox.getText(), 
 								(Author) bookAuthorComboBox.getSelectedItem()
 							)
 					));
-			}).start()
+				});
+				
+				lastAddBookThread.start();
+			}
 		);
 		addBookButton.setEnabled(false);
 		addBookButton.setName("addBookButton");
@@ -394,11 +410,9 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 
 		listBookModels = new DefaultListModel<>();
 		bookList = new JList<>(listBookModels);
-		bookList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				bookDeleteButton.setEnabled(bookList.getSelectedIndex() != -1);
-			}
-		});
+		bookList.addListSelectionListener(e ->
+				bookDeleteButton.setEnabled(bookList.getSelectedIndex() != -1)
+		);
 		scrollPane.setViewportView(bookList);
 		bookList.setName("bookList");
 		bookList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -423,9 +437,9 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 
 	@Override
 	public void showError(String message, Author author) {
-		SwingUtilities.invokeLater(() -> {
-			authorErrorLabel.setText(message + ": " + author);			
-		});
+		SwingUtilities.invokeLater(() -> 
+			authorErrorLabel.setText(message + ": " + author)
+		);
 	}
 
 	@Override
@@ -451,9 +465,9 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 
 	@Override
 	public void showError(String message, Book book) {
-		SwingUtilities.invokeLater(() -> {
-			bookErrorLabel.setText(message + ": " + book);			
-		});
+		SwingUtilities.invokeLater(() -> 
+			bookErrorLabel.setText(message + ": " + book)		
+		);
 	}
 
 	@Override

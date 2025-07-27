@@ -42,10 +42,6 @@ public class MainApp implements Callable<Void>{
 
 	@Override
 	public Void call() throws Exception {
-		if(!isValidName(databaseName) || !isValidName(authorCollectionName) || !isValidName(bookCollectionName)) {
-			throw new IllegalArgumentException("Invalid database or collection name");
-		}
-		
 		EventQueue.invokeLater(() -> {
 			try {
 				AuthorMongoRepository authorRepo = 
@@ -81,9 +77,5 @@ public class MainApp implements Callable<Void>{
 			}
 		});
 		return null;
-	}
-	
-	private static boolean isValidName(String name) {
-		return name.matches("[a-zA-Z0-9_\\-]+");
 	}
 }
