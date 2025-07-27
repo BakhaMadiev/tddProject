@@ -12,10 +12,10 @@ jobs:
       - uses: actions/checkout@v4
         with: 
            fetch-depth: 0
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with: 
-           java-version: 11
+           java-version: 17
            distribution: 'temurin'
       - name: Cache Maven packages
         uses: actions/cache@v4
@@ -30,6 +30,7 @@ jobs:
            xvfb-run mvn verify -Pjacoco sonar:sonar
            -Dsonar.organization=bakhamadiev-github
            -Dsonar.host.url=https://sonarcloud.io
+           -Dsonar.login=$SONAR_TOKEN"
         working-directory: inventory
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB.TOKEN }}
