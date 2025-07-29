@@ -100,432 +100,208 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.button(JButtonMatcher.withName("bookDeleteButton")).requireDisabled();
 	}
 	
+	// author input fields validation
 	@Test
 	public void testWhenAuthorFieldsAreNonEmptyThenAddButtonShouldBeEnabled() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
 		window.textBox("authorIdTextBox").enterText("1");
-		window.textBox("authorNameTextBox").enterText("Name");
 		window.textBox("authorSurnameTextBox").enterText("Surname");
+		window.textBox("authorNameTextBox").enterText("Name");
+		System.out.println("testWhenAuthorFieldsAreNonEmptyThenAddButtonShouldBeEnabled " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
 		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
+	}
+
+	@Test
+	public void testAddAuthorButtonShouldBeDisabledWhenAuthorIdAndNameFieldsAreNotEmpty() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").enterText("1");
+		window.textBox("authorSurnameTextBox").enterText(" ");
+		window.textBox("authorNameTextBox").enterText("Name");
+
+		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorIdAndNameFieldsAreNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
+		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
 	@Test
-	public void testWhenBokkFieldAreNonEmptyThenAddButtonShouldBeEnabled() {
+	public void testAddAuthorButtonShouldBeDisabledWhenAuthorIdAndSurnameFieldsAreNotEmpty() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").enterText("1");
+		window.textBox("authorSurnameTextBox").enterText("Surname");
+		window.textBox("authorNameTextBox").enterText(" ");
+		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorIdAndSurnameFieldsAreNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
+
+		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
+	}
+	
+	@Test
+	public void testAddAuthorButtonShouldBeDisabledWhenAuthorNameAndSurnameFieldsAreNotEmpty() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").enterText(" ");
+		window.textBox("authorSurnameTextBox").enterText("Surname");
+		window.textBox("authorNameTextBox").enterText("Name");
+		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorNameAndSurnameFieldsAreNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
+
+		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
+	}
+	
+	@Test
+	public void testAddAuthorButtonShouldBeDisabledWhenAuthorIdFieldIsNotEmpty() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").enterText("1");
+		window.textBox("authorSurnameTextBox").enterText(" ");
+		window.textBox("authorNameTextBox").enterText(" ");
+		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorIdFieldIsNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
+
+		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
+	}
+	
+	@Test
+	public void testAddAuthorButtonShouldBeDisabledWhenAuthorNameFieldIsNotEmpty() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").enterText(" ");
+		window.textBox("authorSurnameTextBox").enterText(" ");
+		window.textBox("authorNameTextBox").enterText("Name");
+		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorNameFieldIsNotEmpty " + "ID: "+ window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
+
+		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
+	}
+	
+	@Test
+	public void testAddAuthorButtonShouldBeDisabledWhenAuthorSurnameFieldIsNotEmpty() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").enterText(" ");
+		window.textBox("authorSurnameTextBox").enterText("Surname");
+		window.textBox("authorNameTextBox").enterText(" ");
+		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorSurnameFieldIsNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
+
+		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();		
+	}
+	
+	@Test
+	public void testAddAuthorButtonShouldBeDisabledWhenAuthorNameSurnameAndIdIsEmpty() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").enterText(" ");
+		window.textBox("authorSurnameTextBox").enterText(" ");
+		window.textBox("authorNameTextBox").enterText(" ");
+		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorSurnameFieldIsNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
+
+		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();	
+	}
+	
+	//Book fields validation
+	@Test
+	public void testWhenBookFieldsAreNotEmptyThenAddButtonShouldBeEnabled() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
 		window.textBox("bookIdTextBox").enterText("1");
-		window.textBox("bookTitleTextBox").enterText("Book Title");
-		
+		window.textBox("bookTitleTextBox").enterText("Book Title");		
 		Author author = new Author("a1", "Name", "Last Name");
-		GuiActionRunner.execute(() -> {
-			swingView.getBookAuthorComboBox().addItem(author);
-			swingView.getBookAuthorComboBox().setSelectedItem(author);
-			return null;
-			
-		});
-		
-		window.comboBox("bookAuthorComboBox").requireSelection("a1 Name Last Name");
+		GuiActionRunner.execute(() -> 
+			swingView.getBookAuthorComboBox().addItem(author)
+		);		
+		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
 		window.button(JButtonMatcher.withText("Add Book")).requireEnabled();
 	}
 	
 	@Test
-	public void testWhenEitherAuthorIdOrAuthorNameOrAuthorSurnameFieldsAreBlankThenAddButtonShouldBeDisabled() {
-		JTextComponentFixture authorIdTextBox = window.textBox("authorIdTextBox");
-		JTextComponentFixture authorNameTextBox = window.textBox("authorNameTextBox");
-		JTextComponentFixture authorSurnameTextBox = window.textBox("authorSurnameTextBox");		
-		
-		//start with filling up id text box
-		
-		authorIdTextBox.enterText(" ");
-		authorNameTextBox.enterText(" ");
-		authorSurnameTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-		
-		authorIdTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-		
-		authorIdTextBox.enterText(" ");
-		authorNameTextBox.enterText("Name");
-		authorSurnameTextBox.enterText("Last Name");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-		
-		authorIdTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-
-		authorIdTextBox.enterText("1");
-		authorNameTextBox.enterText(" ");
-		authorSurnameTextBox.enterText("Last Name");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorIdTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-
-		authorIdTextBox.enterText("1");
-		authorNameTextBox.enterText("Name");
-		authorSurnameTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorIdTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-
-		authorIdTextBox.enterText(" ");
-		authorNameTextBox.enterText(" ");
-		authorSurnameTextBox.enterText("Last Name");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorIdTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-
-		authorIdTextBox.enterText("1");
-		authorNameTextBox.enterText(" ");
-		authorSurnameTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorIdTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-
-		authorIdTextBox.enterText(" ");
-		authorNameTextBox.enterText("Name");
-		authorSurnameTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorIdTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-		
-		authorIdTextBox.enterText("1");
-		authorNameTextBox.enterText("Name");
-		authorSurnameTextBox.enterText("Last Name");
-		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
-		
-		//start with filling up name text box
-		authorIdTextBox.setText("");
-		authorSurnameTextBox.setText("");
-		authorNameTextBox.setText("");
-		
-		authorNameTextBox.enterText(" ");
-		authorSurnameTextBox.enterText(" ");
-		authorIdTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorNameTextBox.enterText("Name");
-		authorIdTextBox.enterText(" ");
-		authorSurnameTextBox.enterText("Last Name");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorNameTextBox.enterText(" ");
-		authorSurnameTextBox.enterText("Last Name");
-		authorIdTextBox.enterText("1");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorIdTextBox.enterText("1");
-		authorNameTextBox.enterText("Name");
-		authorSurnameTextBox.enterText("");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorIdTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-		//with spaces in surname
-		authorIdTextBox.enterText("1");
-		authorNameTextBox.enterText("Name");
-		authorSurnameTextBox.enterText("             ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorNameTextBox.enterText(" ");
-		authorSurnameTextBox.enterText("Last Name");
-		authorIdTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorNameTextBox.enterText(" ");
-		authorIdTextBox.enterText("1");
-		authorSurnameTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorNameTextBox.enterText("Name");
-		authorSurnameTextBox.enterText(" ");
-		authorIdTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorNameTextBox.enterText("Name");
-		authorIdTextBox.enterText("1");
-		authorSurnameTextBox.enterText("Last Name");
-		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
-		
-		//start filling up from surname text box	
-		authorIdTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorSurnameTextBox.setText("");
-
-		authorSurnameTextBox.enterText(" ");
-		authorNameTextBox.enterText(" ");
-		authorIdTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorSurnameTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorSurnameTextBox.enterText("Last Name");
-		authorNameTextBox.enterText("Name");
-		authorIdTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorSurnameTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorSurnameTextBox.enterText("Last Name");
-		authorNameTextBox.enterText(" ");
-		authorIdTextBox.enterText("1");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorSurnameTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorSurnameTextBox.enterText(" ");
-		authorNameTextBox.enterText("Name");
-		authorIdTextBox.enterText("1");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorSurnameTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorSurnameTextBox.enterText("Last Name");
-		authorNameTextBox.enterText(" ");
-		authorIdTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorSurnameTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorSurnameTextBox.enterText(" ");
-		authorNameTextBox.enterText(" ");
-		authorIdTextBox.enterText("1");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorSurnameTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorSurnameTextBox.enterText(" ");
-		authorNameTextBox.enterText("Name");
-		authorIdTextBox.enterText(" ");
-		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
-
-		authorSurnameTextBox.setText("");
-		authorNameTextBox.setText("");
-		authorIdTextBox.setText("");
-
-		authorSurnameTextBox.enterText("Last Name");
-		authorNameTextBox.enterText("Name");
-		authorIdTextBox.enterText("1");
-		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
-
+	public void testAddBookButtonDisabledWhenIdAndTitleFieldsAreNotEmpty() {
+		Author author = new Author("a1", "Name", "Last Name");
+		GuiActionRunner.execute(() -> 
+			swingView.getBookAuthorComboBox().addItem(author)
+		);
+		window.textBox("bookIdTextBox").enterText("b1");
+		window.textBox("bookTitleTextBox").enterText("Title");
+		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
+		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
 	}
 	
 	@Test
-	public void testWhenEitherBookIdOrBookTitleOrBookAuthorFieldAreBlankThenAddButtonShouldBeDisabled() {
-		JTextComponentFixture bookIdTextBox = window.textBox("bookIdTextBox");
-		JTextComponentFixture bookTitleTextBox = window.textBox("bookTitleTextBox");
-		JButtonFixture addBookButton = window.button(JButtonMatcher.withText("Add Book"));
-		
+	public void testAddBookButtonDisabledWhenIdAndAuthorFieldsAreNotEmpty() {
 		Author author = new Author("a1", "Name", "Last Name");
-		GuiActionRunner.execute(() -> {
-			swingView.getBookAuthorComboBox().addItem(author);
-			swingView.getBookAuthorComboBox().setSelectedItem(author);
-			return null;			
-		});
-		
-		//start with filling up id text box
-		
-		//All Feilds are blank
-		bookIdTextBox.enterText(" ");
-		bookTitleTextBox.enterText(" ");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		addBookButton.requireDisabled();
-		
-		bookIdTextBox.setText("");
-		bookTitleTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));		
-		
-		//Only book id is written
-		bookIdTextBox.enterText("1");
-		bookTitleTextBox.enterText(" ");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		addBookButton.requireDisabled();
-		
-		bookIdTextBox.setText("");
-		bookTitleTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//only title is written
-		bookIdTextBox.enterText(" ");
-		bookTitleTextBox.enterText("Book Title");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		addBookButton.requireDisabled();
-		
-		bookIdTextBox.setText("");
-		bookTitleTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//only author is selected
-		bookIdTextBox.enterText(" ");
-		bookTitleTextBox.enterText(" ");
+		GuiActionRunner.execute(() -> 
+			swingView.getBookAuthorComboBox().addItem(author)
+		);
+		window.textBox("bookIdTextBox").enterText("b1");
+		window.textBox("bookTitleTextBox").enterText(" ");
 		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
-		addBookButton.requireDisabled();
-		
-		bookIdTextBox.setText("");
-		bookTitleTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//ID + title
-		bookIdTextBox.enterText("1");
-		bookTitleTextBox.enterText("Book Title");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		addBookButton.requireDisabled();
-		
-		bookIdTextBox.setText("");
-		bookTitleTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//ID + author
-		bookIdTextBox.enterText("1");
-		bookTitleTextBox.enterText(" ");
+		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
+	}
+	
+	@Test
+	public void testAddBookButtonDisabledWhenTitleAndAuthorFieldsAreNotEmpty() {
+		Author author = new Author("a1", "Name", "Last Name");
+		GuiActionRunner.execute(() -> 
+			swingView.getBookAuthorComboBox().addItem(author)
+		);
+		window.textBox("bookIdTextBox").enterText(" ");
+		window.textBox("bookTitleTextBox").enterText("Title");
 		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
-		addBookButton.requireDisabled();
-		
-		bookIdTextBox.setText("");
-		bookTitleTextBox.setText("");
+		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
+	}
+	
+	@Test
+	public void testAddBookButtonDisabledWhenIdFieldIsNotEmpty() {
+		Author author = new Author("a1", "Name", "Last Name");
+		GuiActionRunner.execute(() -> 
+			swingView.getBookAuthorComboBox().addItem(author)
+		);
+		window.textBox("bookIdTextBox").enterText("b1");
+		window.textBox("bookTitleTextBox").enterText(" ");
 		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//title + author
-		bookIdTextBox.enterText(" ");
-		bookTitleTextBox.enterText("Book Title");
+		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
+	}
+	
+	@Test
+	public void testAddBookButtonDisabledWhenTitleFieldIsNotEmpty() {
+		Author author = new Author("a1", "Name", "Last Name");
+		GuiActionRunner.execute(() -> 
+			swingView.getBookAuthorComboBox().addItem(author)
+		);
+		window.textBox("bookIdTextBox").enterText(" ");
+		window.textBox("bookTitleTextBox").enterText("Title");
+		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
+		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
+	}
+	
+	@Test
+	public void testAddBookButtonDisabledWhenAuthorFieldIsNotEmpty() {
+		Author author = new Author("a1", "Name", "Last Name");
+		GuiActionRunner.execute(() -> 
+			swingView.getBookAuthorComboBox().addItem(author)
+		);
+		window.textBox("bookIdTextBox").enterText(" ");
+		window.textBox("bookTitleTextBox").enterText(" ");
 		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
-		addBookButton.requireDisabled();
-		
-		bookIdTextBox.setText("");
-		bookTitleTextBox.setText("");
+		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
+	}
+	
+	@Test
+	public void testAddBookButtonDisabledWhenIdTitleAndAuthorFieldsAreEmpty() {
+		Author author = new Author("a1", "Name", "Last Name");
+		GuiActionRunner.execute(() -> 
+			swingView.getBookAuthorComboBox().addItem(author)
+		);
+		window.textBox("bookIdTextBox").enterText(" ");
+		window.textBox("bookTitleTextBox").enterText(" ");
 		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//all fields are correct
-		bookIdTextBox.enterText("1");
-		bookTitleTextBox.enterText("Book Title");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
-		addBookButton.requireEnabled();
-		
-		//start with filling up title text box
-		
-		//All Feilds are blank
-		bookTitleTextBox.enterText(" ");
-		bookIdTextBox.enterText(" ");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		addBookButton.requireDisabled();
-
-		bookTitleTextBox.setText("");
-		bookIdTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));		
-		
-		//Only book id is written
-		bookTitleTextBox.enterText(" ");
-		bookIdTextBox.enterText("1");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		addBookButton.requireDisabled();
-
-		bookTitleTextBox.setText("");
-		bookIdTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//only title is written
-		bookTitleTextBox.enterText("Book Title");
-		bookIdTextBox.enterText(" ");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		addBookButton.requireDisabled();
-
-		bookTitleTextBox.setText("");
-		bookIdTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//only author is selected
-		bookTitleTextBox.enterText(" ");
-		bookIdTextBox.enterText(" ");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
-		addBookButton.requireDisabled();
-
-		bookTitleTextBox.setText("");
-		bookIdTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//ID + title
-		bookTitleTextBox.enterText("Book Title");
-		bookIdTextBox.enterText("1");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		addBookButton.requireDisabled();
-
-		bookTitleTextBox.setText("");
-		bookIdTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//ID + author
-		bookTitleTextBox.enterText(" ");
-		bookIdTextBox.enterText("1");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
-		addBookButton.requireDisabled();
-
-		bookTitleTextBox.setText("");
-		bookIdTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//title + author
-		bookTitleTextBox.enterText("Book Title");
-		bookIdTextBox.enterText(" ");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
-		addBookButton.requireDisabled();
-
-		bookTitleTextBox.setText("");
-		bookIdTextBox.setText("");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
-		
-		//all fields are correct
-		bookTitleTextBox.enterText("Book Title");
-		bookIdTextBox.enterText("1");
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
-		addBookButton.requireEnabled();
+		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
 	}
 	
 	@Test
