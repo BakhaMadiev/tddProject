@@ -6,7 +6,6 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.timeout;
 import static org.mockito.Mockito.verify;
 
-import java.awt.event.KeyEvent;
 import java.util.Arrays;
 
 import javax.swing.DefaultListModel;
@@ -101,6 +100,7 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.button(JButtonMatcher.withName("bookDeleteButton")).requireDisabled();
 	}
 	
+	// author input fields validation
 	@Test
 	public void testWhenAuthorFieldsAreNonEmptyThenAddButtonShouldBeEnabled() {
 		window.textBox("authorIdTextBox").setText("");
@@ -112,22 +112,7 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		System.out.println("testWhenAuthorFieldsAreNonEmptyThenAddButtonShouldBeEnabled " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
 		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
 	}
-	
-	@Test
-	public void testWhenBookFieldsAreNotEmptyThenAddButtonShouldBeEnabled() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
-		window.textBox("bookIdTextBox").enterText("1");
-		window.textBox("bookTitleTextBox").enterText("Book Title");		
-		Author author = new Author("a1", "Name", "Last Name");
-		GuiActionRunner.execute(() -> 
-			swingView.getBookAuthorComboBox().addItem(author)
-		);		
-		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
-		window.button(JButtonMatcher.withText("Add Book")).requireEnabled();
-	}
-	
+
 	@Test
 	public void testAddAuthorButtonShouldBeDisabledWhenAuthorIdAndNameFieldsAreNotEmpty() {
 		window.textBox("authorIdTextBox").setText("");
@@ -206,7 +191,34 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();		
 	}
 	
-	//Book fields validation	
+	@Test
+	public void testAddAuthorButtonShouldBeDisabledWhenAuthorNameSurnameAndIdIsEmpty() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").enterText(" ");
+		window.textBox("authorSurnameTextBox").enterText(" ");
+		window.textBox("authorNameTextBox").enterText(" ");
+		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorSurnameFieldIsNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
+
+		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();	
+	}
+	
+	//Book fields validation
+	@Test
+	public void testWhenBookFieldsAreNotEmptyThenAddButtonShouldBeEnabled() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("bookIdTextBox").enterText("1");
+		window.textBox("bookTitleTextBox").enterText("Book Title");		
+		Author author = new Author("a1", "Name", "Last Name");
+		GuiActionRunner.execute(() -> 
+			swingView.getBookAuthorComboBox().addItem(author)
+		);		
+		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
+		window.button(JButtonMatcher.withText("Add Book")).requireEnabled();
+	}
 	
 	@Test
 	public void testAddBookButtonDisabledWhenIdAndTitleFieldsAreNotEmpty() {
@@ -277,6 +289,18 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("bookIdTextBox").enterText(" ");
 		window.textBox("bookTitleTextBox").enterText(" ");
 		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedItem(author));
+		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
+	}
+	
+	@Test
+	public void testAddBookButtonDisabledWhenIdTitleAndAuthorFieldsAreEmpty() {
+		Author author = new Author("a1", "Name", "Last Name");
+		GuiActionRunner.execute(() -> 
+			swingView.getBookAuthorComboBox().addItem(author)
+		);
+		window.textBox("bookIdTextBox").enterText(" ");
+		window.textBox("bookTitleTextBox").enterText(" ");
+		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
 		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
 	}
 	

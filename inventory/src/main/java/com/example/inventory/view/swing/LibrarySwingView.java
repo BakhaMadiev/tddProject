@@ -185,8 +185,9 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 			public void keyReleased(KeyEvent e) {
 				addAuthorButton.setEnabled(
 					!authorSurnameTextBox.getText().trim().isEmpty() &&
-					!authorNameTextBox.getText().trim().isEmpty() &&
-					!authorIdTextBox.getText().trim().isEmpty()
+					!authorIdTextBox.getText().trim().isEmpty() &&
+					!authorNameTextBox.getText().trim().isEmpty()
+					
 				);
 			}
 		});
