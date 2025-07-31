@@ -1,2 +1,2 @@
-[![Java CI with Maven in Linux](https://github.com/BakhaMadiev/tddProject/actions/workflows/maven.yml/badge.svg)](https://github.com/BakhaMadiev/tddProject/actions/workflows/maven.yml)
+[![Java CI with Maven, Docker, and SonarCloud in LIinux](https://github.com/BakhaMadiev/tddProject/actions/workflows/it_tests.yml/badge.svg)](https://github.com/BakhaMadiev/tddProject/actions/workflows/it_tests.yml)
 [![Coverage Status](https://coveralls.io/repos/github/BakhaMadiev/tddProject/badge.svg?branch=4115693835d908c239fd638d2a5ef8510d6941ed)](https://coveralls.io/github/BakhaMadiev/tddProject?branch=4115693835d908c239fd638d2a5ef8510d6941ed)
