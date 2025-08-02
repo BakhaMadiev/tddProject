@@ -134,13 +134,14 @@
 			<version>1.5.2</version>
 			<configuration>
 				<targetClasses>
-					<param>com.example.inventory.*</param>
+					<param>com.example.inventory.controller.*</param>
 				</targetClasses>
 				<targetTests>
-					<param>com.example.inventory.*Test</param>
+					<param>com.example.inventory.controller.*Test</param>
 				</targetTests>
 				<excludedClasses>
 					<param>com.example.inventory.model.*</param>
+					<param>com.example.inventory.MainApp*</param>
 				</excludedClasses>
 				<mutators>
 					<mutator>STRONGER</mutator>

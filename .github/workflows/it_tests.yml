@@ -1,4 +1,4 @@
-name: Java CI with Maven, Docker, and SonarCloud in LIinux
+name: Java CI with Maven, Docker, and SonarCloud in Linux
 
 on:
    push:
@@ -9,6 +9,13 @@ jobs:
       env:
          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+         MAVEN_OPTS: >
+            --add-opens java.base/java.util=ALL-UNNAMED
+            --add-opens java.base/java.lang=ALL-UNNAMED
+            --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+            --add-opens java.desktop/java.lang.reflect=ALL-UNNAMED
+            --add-opens java.desktop/java.awt.event=ALL-UNNAMED
+            --add-opens java.desktop/sun.awt=ALL-UNNAMED
       runs-on: ubuntu-latest
       
       steps:

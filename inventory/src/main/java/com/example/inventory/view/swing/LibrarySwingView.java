@@ -187,7 +187,6 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 					!authorSurnameTextBox.getText().trim().isEmpty() &&
 					!authorIdTextBox.getText().trim().isEmpty() &&
 					!authorNameTextBox.getText().trim().isEmpty()
-					
 				);
 			}
 		});

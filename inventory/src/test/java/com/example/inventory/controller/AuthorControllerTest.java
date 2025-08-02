@@ -55,7 +55,7 @@ public class AuthorControllerTest {
 	}
 	
 	@Test
-	public void testNewAuthorIdInNull() {
+	public void testNewAuthorIdIsNull() {
 		Author author = new Author(null, "Name", "Surname");
 		authorController.newAuthor(author);
 		verify(authorView).showError("Please, set a correct author id!", author);
@@ -110,5 +110,4 @@ public class AuthorControllerTest {
 		verify(authorView).showError("Cannot delete author - No existing author with id: " + author.getId(), author);
 		verifyNoMoreInteractions(ignoreStubs(authorRepo));
 	}
-
 }
