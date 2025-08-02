@@ -9,23 +9,16 @@ jobs:
       env:
          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-         MAVEN_OPTS: >
-            --add-opens java.base/java.util=ALL-UNNAMED
-            --add-opens java.base/java.lang=ALL-UNNAMED
-            --add-opens java.base/java.lang.reflect=ALL-UNNAMED
-            --add-opens java.desktop/java.lang.reflect=ALL-UNNAMED
-            --add-opens java.desktop/java.awt.event=ALL-UNNAMED
-            --add-opens java.desktop/sun.awt=ALL-UNNAMED
       runs-on: ubuntu-latest
       
       steps:
       - uses: actions/checkout@v4
         with: 
            fetch-depth: 0
-      - name: Set up JDK 11
+      - name: Set up JDK 1
         uses: actions/setup-java@v4
         with: 
-           java-version: 11
+           java-version: 17
            distribution: 'temurin'
       - name: Cache Maven packages
         uses: actions/cache@v4
@@ -40,7 +33,7 @@ jobs:
         if: ${{ env.SONAR_TOKEN }}
       - name: Build with Maven and Sonar Cloud
         run: > 
-           xvfb-run mvn verify -Pjacoco $SONARGOAL
+           xvfb-run mvn verify $SONARGOAL
            -Dsonar.organization=bakhamadiev
            -Dsonar.host.url=https://sonarcloud.io
            -Dsonar.projectKey=BakhaMadiev_tddProject
