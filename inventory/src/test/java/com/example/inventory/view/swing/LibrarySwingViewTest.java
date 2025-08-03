@@ -1,6 +1,6 @@
 package com.example.inventory.view.swing;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.timeout;
@@ -456,7 +456,7 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		});
 		window.list("authorList").selectItem(1);
 		window.button(JButtonMatcher.withText("Delete Selected Author")).click();
-		verify(authorController).deleteAuthor(a2);
+		verify(authorController).deleteAuthor(a2);;
 	}
 	
 	@Test
