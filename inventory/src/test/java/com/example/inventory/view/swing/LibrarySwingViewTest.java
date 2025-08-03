@@ -1,6 +1,6 @@
 package com.example.inventory.view.swing;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.timeout;
@@ -16,7 +16,6 @@ import org.assertj.swing.core.matcher.JLabelMatcher;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
 import org.assertj.swing.fixture.JButtonFixture;
-import org.assertj.swing.fixture.JTextComponentFixture;
 import org.assertj.swing.junit.testcase.AssertJSwingJUnitTestCase;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -109,7 +108,6 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorIdTextBox").enterText("1");
 		window.textBox("authorSurnameTextBox").enterText("Surname");
 		window.textBox("authorNameTextBox").enterText("Name");
-		System.out.println("testWhenAuthorFieldsAreNonEmptyThenAddButtonShouldBeEnabled " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
 		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
 	}
 
@@ -121,8 +119,6 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorIdTextBox").enterText("1");
 		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText("Name");
-
-		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorIdAndNameFieldsAreNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
@@ -134,8 +130,6 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorIdTextBox").enterText("1");
 		window.textBox("authorSurnameTextBox").enterText("Surname");
 		window.textBox("authorNameTextBox").enterText(" ");
-		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorIdAndSurnameFieldsAreNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
-
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
@@ -147,8 +141,6 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorIdTextBox").enterText(" ");
 		window.textBox("authorSurnameTextBox").enterText("Surname");
 		window.textBox("authorNameTextBox").enterText("Name");
-		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorNameAndSurnameFieldsAreNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
-
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
@@ -160,8 +152,6 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorIdTextBox").enterText("1");
 		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText(" ");
-		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorIdFieldIsNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
-
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
@@ -173,8 +163,6 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorIdTextBox").enterText(" ");
 		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText("Name");
-		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorNameFieldIsNotEmpty " + "ID: "+ window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
-
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
@@ -186,8 +174,6 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorIdTextBox").enterText(" ");
 		window.textBox("authorSurnameTextBox").enterText("Surname");
 		window.textBox("authorNameTextBox").enterText(" ");
-		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorSurnameFieldIsNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
-
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();		
 	}
 	
@@ -199,8 +185,6 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorIdTextBox").enterText(" ");
 		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText(" ");
-		System.out.println("testAddAuthorButtonShouldBeDisabledWhenAuthorSurnameFieldIsNotEmpty " + "ID: " + window.textBox("authorIdTextBox").text() + " Name: " + window.textBox("authorNameTextBox").text() + " Surname: " + window.textBox("authorSurnameTextBox").text());
-
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();	
 	}
 	
@@ -472,7 +456,7 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		});
 		window.list("authorList").selectItem(1);
 		window.button(JButtonMatcher.withText("Delete Selected Author")).click();
-		verify(authorController).deleteAuthor(a2);;
+		verify(authorController).deleteAuthor(a2);
 	}
 	
 	@Test
