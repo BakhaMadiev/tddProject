@@ -456,7 +456,7 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		});
 		window.list("authorList").selectItem(1);
 		window.button(JButtonMatcher.withText("Delete Selected Author")).click();
-		verify(authorController).deleteAuthor(a2);;
+		verify(authorController).deleteAuthor(a2);
 	}
 	
 	@Test
