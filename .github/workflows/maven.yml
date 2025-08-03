@@ -38,10 +38,17 @@ jobs:
       # Build on Java 8
       - name: Build Maven with Coveralls (Java 8)
         if: matrix.java == 8
-        run: xvfb-run mvn verify -Pjacoco -Pcoveralls -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
+        run: xvfb-run mvn verify -Pjacoco jacoco:report -Pcoveralls -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
         working-directory: inventory
         env:
            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+           
+      - name: Archive Jacoco report
+        if: matrix.java == 8
+        uses: actions/upload-artifact@v4
+        with: 
+           name: jacoco-report-java8
+           path: inventory/target/site/jacoco/jacoco.xml
            
       #Build on Java 11
       - name: Build Maven with PIT Mutation testing and surefire report generation
