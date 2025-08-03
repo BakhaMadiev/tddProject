@@ -234,6 +234,8 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>3.5.3</version>
 				<configuration>
+					<forkCount>1</forkCount>
+					<reuseForks>true</reuseForks>
 					<systemPropertyVariables>
 						<mongo.port>${mongo.mapped.port}</mongo.port>
 					</systemPropertyVariables>
@@ -327,6 +329,10 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-report-plugin</artifactId>
 					<version>3.2.5</version>
+					<configuration>
+						<forkCount>1</forkCount>
+						<reuseForks>true</reuseForks>
+					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
