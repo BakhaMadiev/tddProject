@@ -6,19 +6,23 @@ on:
    
 jobs:
    build:
+      runs-on: ubuntu-latest
+      strategy: 
+         matrix:
+            java: [8, 17]
+            
       env:
          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
-      runs-on: ubuntu-latest
       
       steps:
       - uses: actions/checkout@v4
         with: 
            fetch-depth: 0
-      - name: Set up JDK 17
+      - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v4
         with: 
-           java-version: 17
+           java-version: ${{ matix.java }}
            distribution: 'temurin'
       - name: Cache Maven packages
         uses: actions/cache@v4
@@ -28,12 +32,17 @@ jobs:
               ~/.sonar/cache
            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml', '**/*.yml') }}
            restore-keys: ${{ runner.os }}-m2-
-      - name: Set Maven Additional Goals
-        run: echo "SONARGOAL=sonar:sonar" >> $GITHUB_ENV
-        if: ${{ env.SONAR_TOKEN }}
-      - name: Build with Maven and Sonar Cloud
-        run: > 
-           xvfb-run mvn verify $SONARGOAL
+           
+      # Build on Java 8
+      - name: Build Maven with Coveralls (Java 8)
+        if: matrix.java == 8
+        run: xvfb-run mvn verify -Pcoveralls
+        
+      # Build on Java 17
+      - name: Build Maven with Sonarcloud (Java 17)
+        if: matrix.java == 17
+        run: >
+           xbfb-run mvn verify -Pjacoco sonar:sonar
            -Dsonar.organization=bakhamadiev
            -Dsonar.host.url=https://sonarcloud.io
            -Dsonar.projectKey=BakhaMadiev_tddProject
