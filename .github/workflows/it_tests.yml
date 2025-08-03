@@ -37,6 +37,7 @@ jobs:
       - name: Build Maven with Coveralls (Java 8)
         if: matrix.java == 8
         run: xvfb-run mvn verify -Pcoveralls
+        working-directory: inventory
         
       # Build on Java 17
       - name: Build Maven with Sonarcloud (Java 17)
