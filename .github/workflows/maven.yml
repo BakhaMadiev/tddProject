@@ -38,7 +38,7 @@ jobs:
       # Build on Java 8
       - name: Build Maven with Coveralls (Java 8)
         if: matrix.java == 8
-        run: xvfb-run mvn verify -Pjacoco jacoco:report -Pcoveralls -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
+        run: run mvn verify -Pjacoco jacoco:report -Pcoveralls -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
         working-directory: inventory
         env:
            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
@@ -53,7 +53,7 @@ jobs:
       #Build on Java 11
       - name: Build Maven with PIT Mutation testing and surefire report generation
         if: matrix.java == 11
-        run: xvfb-run mvn verify org.pitest:pitest-maven:mutationCoverage surefire-report:report-only
+        run: run mvn verify org.pitest:pitest-maven:mutationCoverage surefire-report:report-only
         working-directory: inventory
       
       - name: Archive PIT report for java 11
@@ -74,7 +74,7 @@ jobs:
       - name: Build Maven with Sonarcloud
         if: matrix.java == 17
         run: >
-           xvfb-run mvn verify -Pjacoco sonar:sonar
+           xvfb-run mvn verify sonar:sonar
            -Dsonar.organization=bakhamadiev
            -Dsonar.host.url=https://sonarcloud.io
            -Dsonar.projectKey=BakhaMadiev_tddProject
