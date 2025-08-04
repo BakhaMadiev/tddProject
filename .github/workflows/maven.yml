@@ -37,7 +37,7 @@ jobs:
         
       # Build on Java 17
       - name: Build Maven with Sonarcloud
-        if: matrix.java == 8
+        if: matrix.java == 17
         run: >
            xvfb-run mvn verify sonar:sonar
            -Dsonar.organization=bakhamadiev
