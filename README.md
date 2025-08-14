@@ -5,6 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/BakhaMadiev/tddProject/badge.svg?branch=4115693835d908c239fd638d2a5ef8510d6941ed)](https://coveralls.io/github/BakhaMadiev_tddProject?branch=4115693835d908c239fd638d2a5ef8510d6941ed)
 
 ## SonarCloud:
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BakhaMadiev_tddProject&metric=coverage)](https://sonarcloud.io/summary/new_code?id=BakhaMadiev_tddProject)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BakhaMadiev_tddProject&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=BakhaMadiev_tddProject)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=BakhaMadiev_tddProject&metric=bugs)](https://sonarcloud.io/summary/new_code?id=BakhaMadiev_tddProject)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=BakhaMadiev_tddProject&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=BakhaMadiev_tddProject)
