@@ -59,7 +59,7 @@ jobs:
       - name: Build Maven with Sonarcloud and generating jacoco report
         if: matrix.java == 17
         run: >
-           xvfb-run mvn verify -Pjacoco jacoco:report -Pcoveralls -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report sonar:sonar
+           xvfb-run mvn verify -Pjacoco jacoco:report sonar:sonar
            -Dsonar.organization=bakhamadiev
            -Dsonar.host.url=https://sonarcloud.io
            -Dsonar.projectKey=BakhaMadiev_tddProject
