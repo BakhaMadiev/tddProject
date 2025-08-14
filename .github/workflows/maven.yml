@@ -39,7 +39,7 @@ jobs:
       # Coveralls is not up (server returns 500) Removed for now
       - name: Build Maven with Coveralls (Java 8)
         if: matrix.java == 8
-        run: xvfb-run mvn verify -Pjacoco jacoco:report
+        run: xvfb-run mvn verify -Pjacoco jacoco:report -Pcoveralls -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
         working-directory: inventory
         env:
            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
@@ -80,6 +80,7 @@ jobs:
            -Dsonar.host.url=https://sonarcloud.io
            -Dsonar.projectKey=BakhaMadiev_tddProject
            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+           -Dargline="--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.desktop/sun.awt=ALL-UNNAMED"
         working-directory: inventory
         env:
            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

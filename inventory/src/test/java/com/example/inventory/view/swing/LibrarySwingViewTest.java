@@ -321,20 +321,20 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	// Book KeyListener Validation
 
 	@Test
-	public void testBookIdKeyListenerWithEmptyTitleNoAuthor() {
-	    window.textBox("bookIdTextBox").setText("");
-	    window.textBox("bookTitleTextBox").setText("");
-	    GuiActionRunner.execute(() -> {
-	        swingView.getBookAuthorComboBox().removeAllItems();
-	    });
-	    window.textBox("bookIdTextBox").enterText("1");
-	    window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
+	public void testBookKeyListenerWithOnlyIdTextBoxIsFilled() {
+		window.textBox("bookIdTextBox").deleteText();
+		window.textBox("bookTitleTextBox").deleteText();
+		GuiActionRunner.execute(() -> {
+			swingView.getBookAuthorComboBox().removeAllItems();
+		});
+		window.textBox("bookIdTextBox").enterText("1");
+		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
 	}
 
 	@Test
-	public void testBookIdKeyListenerWithTitleNoAuthor() {
-		window.textBox("bookIdTextBox").setText("");
-		window.textBox("bookTitleTextBox").setText("");
+	public void testBookKeyListenerWhenOnlyIdAndTitleTextBoxesAreFilled() {
+		window.textBox("bookIdTextBox").deleteText();
+		window.textBox("bookTitleTextBox").deleteText();
 		GuiActionRunner.execute(() -> {
 			swingView.getBookAuthorComboBox().removeAllItems();
 		});
