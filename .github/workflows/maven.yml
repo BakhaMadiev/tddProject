@@ -38,7 +38,7 @@ jobs:
       # Build on Java 8
       - name: Build Maven with Coveralls (Java 8)
         if: matrix.java == 8
-        run: xvfb-run mvn verify -Pjacoco jacoco:report
+        run: xvfb-run mvn verify -Pjacoco jacoco:report -Pcoveralls -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
         working-directory: inventory
         env:
            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
@@ -71,14 +71,13 @@ jobs:
            path: inventory/target/surefire-reports
         
       # Build on Java 17
-      - name: Build Maven with Sonarcloud
+      - name: Build Maven with Sonarcloud and generating jacoco report
         if: matrix.java == 17
         run: >
-           xvfb-run mvn verify -Pjacoco sonar:sonar
+           xvfb-run mvn verify -Pjacoco jacoco:report -Pcoveralls -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report sonar:sonar
            -Dsonar.organization=bakhamadiev
            -Dsonar.host.url=https://sonarcloud.io
            -Dsonar.projectKey=BakhaMadiev_tddProject
-           -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
         working-directory: inventory
         env:
            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
