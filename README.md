@@ -2,7 +2,7 @@
 
 ## CI & Test Coverage
 [![Java CI with Maven, Docker, and SonarCloud in Linux](https://github.com/BakhaMadiev/tddProject/actions/workflows/maven.yml/badge.svg)](https://github.com/BakhaMadiev/tddProject/actions/workflows/maven.yml)
-[![Coverage Status](https://coveralls.io/repos/github/BakhaMadiev/tddProject/badge.svg?branch=4115693835d908c239fd638d2a5ef8510d6941ed)](https://coveralls.io/github/BakhaMadiev_tddProject?branch=4115693835d908c239fd638d2a5ef8510d6941ed)
+[![Coverage Status](https://coveralls.io/repos/github/BakhaMadiev/tddProject/badge.svg?branch=master)](https://coveralls.io/github/BakhaMadiev/tddProject?branch=master)
 
 ## SonarCloud:
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BakhaMadiev_tddProject&metric=coverage)](https://sonarcloud.io/summary/new_code?id=BakhaMadiev_tddProject)
