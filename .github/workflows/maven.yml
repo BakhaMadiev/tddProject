@@ -80,7 +80,6 @@ jobs:
            -Dsonar.host.url=https://sonarcloud.io
            -Dsonar.projectKey=BakhaMadiev_tddProject
            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-           -Dargline="--add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.desktop/sun.awt=ALL-UNNAMED"
         working-directory: inventory
         env:
            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
