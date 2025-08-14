@@ -117,8 +117,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorNameTextBox").setText("");
 		window.textBox("authorSurnameTextBox").setText("");
 		window.textBox("authorIdTextBox").enterText("1");
-		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText("Name");
+		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
@@ -128,8 +128,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorNameTextBox").setText("");
 		window.textBox("authorSurnameTextBox").setText("");
 		window.textBox("authorIdTextBox").enterText("1");
-		window.textBox("authorSurnameTextBox").enterText("Surname");
 		window.textBox("authorNameTextBox").enterText(" ");
+		window.textBox("authorSurnameTextBox").enterText("Surname");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
@@ -139,8 +139,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorNameTextBox").setText("");
 		window.textBox("authorSurnameTextBox").setText("");
 		window.textBox("authorIdTextBox").enterText(" ");
-		window.textBox("authorSurnameTextBox").enterText("Surname");
 		window.textBox("authorNameTextBox").enterText("Name");
+		window.textBox("authorSurnameTextBox").enterText("Surname");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
@@ -150,8 +150,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorNameTextBox").setText("");
 		window.textBox("authorSurnameTextBox").setText("");
 		window.textBox("authorIdTextBox").enterText("1");
-		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText(" ");
+		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
@@ -161,8 +161,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorNameTextBox").setText("");
 		window.textBox("authorSurnameTextBox").setText("");
 		window.textBox("authorIdTextBox").enterText(" ");
-		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText("Name");
+		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
@@ -172,8 +172,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorNameTextBox").setText("");
 		window.textBox("authorSurnameTextBox").setText("");
 		window.textBox("authorIdTextBox").enterText(" ");
-		window.textBox("authorSurnameTextBox").enterText("Surname");
 		window.textBox("authorNameTextBox").enterText(" ");
+		window.textBox("authorSurnameTextBox").enterText("Surname");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();		
 	}
 	
@@ -183,9 +183,39 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		window.textBox("authorNameTextBox").setText("");
 		window.textBox("authorSurnameTextBox").setText("");
 		window.textBox("authorIdTextBox").enterText(" ");
-		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText(" ");
+		window.textBox("authorSurnameTextBox").enterText(" ");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();	
+	}
+	
+	
+	//Key Listener Validation
+	@Test
+	public void testAuthorNameKeyListenerWithIdEmpty() {
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("Listener");
+		window.textBox("authorNameTextBox").enterText("Testing");
+		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();	
+	}
+	
+	@Test
+	public void testAuthorIdKeyListenerWithAllFieldsNonEmpty() {
+		window.textBox("authorNameTextBox").setText("Leo");
+		window.textBox("authorSurnameTextBox").setText("Tolstoy");
+		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorIdTextBox").enterText("123");		
+		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
+	}
+
+	@Test
+		public void testAuthorIdKeyListenerWithSurnameEmpty() {
+		window.textBox("authorIdTextBox").setText("");	
+		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorNameTextBox").enterText("Leo");
+		window.textBox("authorIdTextBox").enterText("123");	    
+		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
 	}
 	
 	//Book fields validation
@@ -287,6 +317,48 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		GuiActionRunner.execute(() -> swingView.getBookAuthorComboBox().setSelectedIndex(-1));
 		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
 	}
+	
+	// Book KeyListener Validation
+
+	@Test
+	public void testBookIdKeyListenerWithEmptyTitleNoAuthor() {
+	    window.textBox("bookIdTextBox").setText("");
+	    window.textBox("bookTitleTextBox").setText("");
+	    GuiActionRunner.execute(() -> {
+	        swingView.getBookAuthorComboBox().removeAllItems();
+	    });
+	    window.textBox("bookIdTextBox").enterText("1");
+	    window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
+	}
+
+	@Test
+	public void testBookIdKeyListenerWithTitleNoAuthor() {
+		window.textBox("bookIdTextBox").setText("");
+		window.textBox("bookTitleTextBox").setText("");
+		GuiActionRunner.execute(() -> {
+			swingView.getBookAuthorComboBox().removeAllItems();
+		});
+		window.textBox("bookTitleTextBox").setText("Book Title");
+		window.textBox("bookIdTextBox").enterText("2");
+		window.button(JButtonMatcher.withText("Add Book")).requireDisabled();
+	}
+
+	@Test
+	public void testBookIdKeyListenerWithAllFieldsSet() {
+		window.textBox("bookIdTextBox").setText("");
+		window.textBox("bookTitleTextBox").setText("");
+		Author author = new Author("a1", "Author Name", "Author Surname");
+		GuiActionRunner.execute(() -> {
+			swingView.getBookAuthorComboBox().removeAllItems();
+			swingView.getBookAuthorComboBox().addItem(author);
+			swingView.getBookAuthorComboBox().setSelectedItem(author);
+		});
+		window.textBox("bookTitleTextBox").setText("Book Title");
+		window.textBox("bookIdTextBox").enterText("3");
+		window.button(JButtonMatcher.withText("Add Book")).requireEnabled();
+	}
+	
+	//Delete buttons
 	
 	@Test
 	public void testDeleteAuthorButtonShouldBeEnabledWhenAuthorFromListIsSelected() {

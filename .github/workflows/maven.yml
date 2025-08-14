@@ -35,6 +35,22 @@ jobs:
            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml', '**/*.yml') }}
            restore-keys: ${{ runner.os }}-m2-
            
+      # Build on Java 8
+      # Coveralls is not up (server returns 500) Removed for now
+      - name: Build Maven with Coveralls (Java 8)
+        if: matrix.java == 8
+        run: xvfb-run mvn verify -Pjacoco jacoco:report
+        working-directory: inventory
+        env:
+           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+           
+      - name: Archive Jacoco report
+        if: matrix.java == 8
+        uses: actions/upload-artifact@v4
+        with: 
+           name: jacoco-report-java8
+           path: inventory/target/site/jacoco/jacoco.xml
+           
       #Build on Java 11
       - name: Build Maven with PIT Mutation testing and surefire report generation
         if: matrix.java == 11
@@ -56,14 +72,14 @@ jobs:
            path: inventory/target/surefire-reports
         
       # Build on Java 17
-      - name: Build Maven with Sonarcloud and generating jacoco report
+      - name: Build Maven with Sonarcloud
         if: matrix.java == 17
         run: >
-           xvfb-run mvn verify -Pjacoco jacoco:report sonar:sonar
+           xvfb-run mvn verify -Pjacoco sonar:sonar
            -Dsonar.organization=bakhamadiev
            -Dsonar.host.url=https://sonarcloud.io
            -Dsonar.projectKey=BakhaMadiev_tddProject
+           -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
         working-directory: inventory
         env:
            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
