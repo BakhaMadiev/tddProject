@@ -44,12 +44,12 @@ jobs:
         env:
            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
            
-      - name: Archive Jacoco report
+      - name: Archive HTML Jacoco report
         if: matrix.java == 8
         uses: actions/upload-artifact@v4
         with: 
-           name: jacoco-report-java8
-           path: inventory/target/site/jacoco/jacoco.xml
+           name: jacoco-html-report-java8
+           path: inventory/target/site/jacoco/
            
       #Build on Java 11
       - name: Build Maven with PIT Mutation testing and surefire report generation
