@@ -38,7 +38,7 @@ jobs:
       # Build on Java 8
       - name: Build Maven with Coveralls (Java 8)
         if: matrix.java == 8
-        run: xvfb-run mvn verify -Pjacoco 
+        run: xvfb-run mvn verify -Pjacoco jacoco:report
         working-directory: inventory
         env:
            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
@@ -47,7 +47,7 @@ jobs:
         if: matrix.java == 8
         run: mvn -Pcoveralls -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
         working-directory: inventory
-        continue-on-error: true #Because coveralls.io was down few days ago, it could happen again
+        continue-on-error: true #Because coveralls.io was down few days ago
            
       - name: Archive Jacoco HTML report
         if: matrix.java == 8
