@@ -54,7 +54,7 @@ jobs:
       #Build on Java 11
       - name: Build Maven with PIT Mutation testing and surefire report generation
         if: matrix.java == 11
-        run: xvfb-run mvn verify org.pitest:pitest-maven:mutationCoverage surefire-report:report-only
+        run: xvfb-run mvn verify -Pmutation-testing-report
         working-directory: inventory
       
       - name: Archive PIT report for java 11

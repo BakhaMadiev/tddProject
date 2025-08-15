@@ -432,5 +432,54 @@
 				</plugins>
 			</build>
 		</profile>
+		
+		<!--Mutation testing profile-->
+		<profile>
+			<id>mutation-testing-report</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.pitest</groupId>
+						<artifactId>pitest-maven</artifactId>
+						<version>${pitest.version}</version>
+						<configuration>
+							<targetClasses>
+								<param>com.example.inventory.controller.*</param>
+							</targetClasses>
+							<targetTests>
+								<param>com.example.inventory.controller.*Test</param>
+							</targetTests>
+							<excludedClasses>
+								<param>com.example.inventory.model.*</param>
+								<param>com.example.inventory.MainApp*</param>
+							</excludedClasses>
+							<mutators>
+								<mutator>STRONGER</mutator>
+							</mutators>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>mutationCoverage</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					
+					<plugin>
+						<groupId>org.apache.maven.plugin</groupId>
+						<artifactId>maven-surefire-report-plugin</artifactId>
+						<version>${maven.surefire.report.plugin.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>report-only</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 </project>
