@@ -184,8 +184,16 @@
 			</configuration>
 		</plugin>
 		
-		<!--JaCoCo configuration-->
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>exec-maven-plugin</artifactId>
+			<version>3.1.0</version>
+			<configuration>
+				<mainClass>com.example.inventory.MainApp</mainClass>
+			</configuration>
+		</plugin>
 		
+		<!--JaCoCo configuration-->
 		
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
@@ -424,6 +432,5 @@
 				</plugins>
 			</build>
 		</profile>
-	
 	</profiles>
 </project>
