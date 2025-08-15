@@ -102,9 +102,9 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	// author input fields validation
 	@Test
 	public void testWhenAuthorFieldsAreNonEmptyThenAddButtonShouldBeEnabled() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();
+		window.textBox("authorNameTextBox").deleteText();
+		window.textBox("authorSurnameTextBox").deleteText();
 		window.textBox("authorIdTextBox").enterText("1");
 		window.textBox("authorSurnameTextBox").enterText("Surname");
 		window.textBox("authorNameTextBox").enterText("Name");
@@ -113,9 +113,9 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 
 	@Test
 	public void testAddAuthorButtonShouldBeDisabledWhenAuthorIdAndNameFieldsAreNotEmpty() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();
+		window.textBox("authorNameTextBox").deleteText();
+		window.textBox("authorSurnameTextBox").deleteText();
 		window.textBox("authorIdTextBox").enterText("1");
 		window.textBox("authorNameTextBox").enterText("Name");
 		window.textBox("authorSurnameTextBox").enterText(" ");
@@ -124,9 +124,9 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	
 	@Test
 	public void testAddAuthorButtonShouldBeDisabledWhenAuthorIdAndSurnameFieldsAreNotEmpty() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();
+		window.textBox("authorNameTextBox").deleteText();
+		window.textBox("authorSurnameTextBox").deleteText();
 		window.textBox("authorIdTextBox").enterText("1");
 		window.textBox("authorNameTextBox").enterText(" ");
 		window.textBox("authorSurnameTextBox").enterText("Surname");
@@ -135,9 +135,9 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	
 	@Test
 	public void testAddAuthorButtonShouldBeDisabledWhenAuthorNameAndSurnameFieldsAreNotEmpty() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();
+		window.textBox("authorNameTextBox").deleteText();
+		window.textBox("authorSurnameTextBox").deleteText();
 		window.textBox("authorIdTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText("Name");
 		window.textBox("authorSurnameTextBox").enterText("Surname");
@@ -146,9 +146,9 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	
 	@Test
 	public void testAddAuthorButtonShouldBeDisabledWhenAuthorIdFieldIsNotEmpty() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();
+		window.textBox("authorNameTextBox").deleteText();
+		window.textBox("authorSurnameTextBox").deleteText();
 		window.textBox("authorIdTextBox").enterText("1");
 		window.textBox("authorNameTextBox").enterText(" ");
 		window.textBox("authorSurnameTextBox").enterText(" ");
@@ -157,9 +157,9 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	
 	@Test
 	public void testAddAuthorButtonShouldBeDisabledWhenAuthorNameFieldIsNotEmpty() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();
+		window.textBox("authorNameTextBox").deleteText();
+		window.textBox("authorSurnameTextBox").deleteText();
 		window.textBox("authorIdTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText("Name");
 		window.textBox("authorSurnameTextBox").enterText(" ");
@@ -168,9 +168,9 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	
 	@Test
 	public void testAddAuthorButtonShouldBeDisabledWhenAuthorSurnameFieldIsNotEmpty() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();
+		window.textBox("authorNameTextBox").deleteText();
+		window.textBox("authorSurnameTextBox").deleteText();
 		window.textBox("authorIdTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText(" ");
 		window.textBox("authorSurnameTextBox").enterText("Surname");
@@ -179,9 +179,9 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	
 	@Test
 	public void testAddAuthorButtonShouldBeDisabledWhenAuthorNameSurnameAndIdIsEmpty() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();
+		window.textBox("authorNameTextBox").deleteText();
+		window.textBox("authorSurnameTextBox").deleteText();
 		window.textBox("authorIdTextBox").enterText(" ");
 		window.textBox("authorNameTextBox").enterText(" ");
 		window.textBox("authorSurnameTextBox").enterText(" ");
@@ -192,8 +192,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	//Key Listener Validation
 	@Test
 	public void testAuthorNameKeyListenerWithIdEmpty() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();
+		window.textBox("authorNameTextBox").deleteText();
 		window.textBox("authorSurnameTextBox").setText("Listener");
 		window.textBox("authorNameTextBox").enterText("Testing");
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();	
@@ -203,16 +203,16 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	public void testAuthorIdKeyListenerWithAllFieldsNonEmpty() {
 		window.textBox("authorNameTextBox").setText("Leo");
 		window.textBox("authorSurnameTextBox").setText("Tolstoy");
-		window.textBox("authorIdTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();
 		window.textBox("authorIdTextBox").enterText("123");		
 		window.button(JButtonMatcher.withText("Add Author")).requireEnabled();
 	}
 
 	@Test
 		public void testAuthorIdKeyListenerWithSurnameEmpty() {
-		window.textBox("authorIdTextBox").setText("");	
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();	
+		window.textBox("authorNameTextBox").deleteText();
+		window.textBox("authorSurnameTextBox").deleteText();
 		window.textBox("authorNameTextBox").enterText("Leo");
 		window.textBox("authorIdTextBox").enterText("123");	    
 		window.button(JButtonMatcher.withText("Add Author")).requireDisabled();
@@ -221,9 +221,9 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 	//Book fields validation
 	@Test
 	public void testWhenBookFieldsAreNotEmptyThenAddButtonShouldBeEnabled() {
-		window.textBox("authorIdTextBox").setText("");
-		window.textBox("authorNameTextBox").setText("");
-		window.textBox("authorSurnameTextBox").setText("");
+		window.textBox("authorIdTextBox").deleteText();
+		window.textBox("authorNameTextBox").deleteText();
+		window.textBox("authorSurnameTextBox").deleteText();
 		window.textBox("bookIdTextBox").enterText("1");
 		window.textBox("bookTitleTextBox").enterText("Book Title");		
 		Author author = new Author("a1", "Name", "Last Name");
@@ -345,8 +345,8 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 
 	@Test
 	public void testBookIdKeyListenerWithAllFieldsSet() {
-		window.textBox("bookIdTextBox").setText("");
-		window.textBox("bookTitleTextBox").setText("");
+		window.textBox("bookIdTextBox").deleteText();
+		window.textBox("bookTitleTextBox").deleteText();
 		Author author = new Author("a1", "Author Name", "Author Surname");
 		GuiActionRunner.execute(() -> {
 			swingView.getBookAuthorComboBox().removeAllItems();

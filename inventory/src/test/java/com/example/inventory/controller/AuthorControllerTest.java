@@ -55,22 +55,6 @@ public class AuthorControllerTest {
 	}
 	
 	@Test
-	public void testNewAuthorIdIsNull() {
-		Author author = new Author(null, "Name", "Surname");
-		authorController.newAuthor(author);
-		verify(authorView).showError("Please, set a correct author id!", author);
-		verifyNoMoreInteractions(authorRepo, authorView);
-	}
-	
-	@Test
-	public void testNewAuthorIdIsEmpty() {
-		Author author = new Author(" ", "Name", "Surname");
-		authorController.newAuthor(author);
-		verify(authorView).showError("Please, set a correct author id!", author);
-		verifyNoMoreInteractions(authorRepo, authorView);
-	}
-	
-	@Test
 	public void testNewAuthorWhenAuthorDoesNotExist() {
 		Author author = new Author("1", "Name", "Surname");
 		when(authorRepo.findById("1")).thenReturn(null);

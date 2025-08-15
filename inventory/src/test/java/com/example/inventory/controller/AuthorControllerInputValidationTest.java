@@ -48,6 +48,8 @@ public class AuthorControllerInputValidationTest {
 	@Parameterized.Parameters
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][] {
+			{ new Author(null, "Name", "Surname"), "Please, set a correct author id!"},
+			{ new Author("", "Name", "Surname"), "Please, set a correct author id!"},
 			{ new Author("1", null, "Surname"), "Please, set a correct name for author with ID: 1" },
 			{ new Author("1", " ", "Surname"), "Please, set a correct name for author with ID: 1" },
 			{ new Author("1", "Name", null), "Please, set a correct surname for author with ID: 1" },
