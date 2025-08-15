@@ -11,8 +11,10 @@
 	<url>http://maven.apache.org</url>
 	
 	<properties>
-	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	  <maven.compiler.source>1.8</maven.compiler.source>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		
+		<!--Dependency Versions -->
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<junit.version>4.12</junit.version>
 		<assertj.version>3.27.3</assertj.version>
@@ -25,6 +27,8 @@
 		<picocli.version>4.7.7</picocli.version>
 		<awaitility.version>4.2.0</awaitility.version>
 		<cucumber.java.version>5.5.0</cucumber.java.version>
+		
+		<!--Plugin versions-->
 		<pitest.version>1.5.2</pitest.version>
 		<build.helper.maven.plugin.version>3.0.0</build.helper.maven.plugin.version>
 		<maven.failsafe.plugin.version>3.5.3</maven.failsafe.plugin.version>
@@ -35,6 +39,7 @@
 		<coveralls.manev.plugin.version>4.3.0</coveralls.manev.plugin.version>
 		<jacoco.maven.plugin.version>0.8.11</jacoco.maven.plugin.version>
 		
+		<!--SonarCloud Configuration-->		
 		<sonar.issue.ignore.multicriteria>e21,e22,e23,e24,e25,e26,e27</sonar.issue.ignore.multicriteria>
 		
 		<!--Test classes should comply with a naming convention-->
@@ -73,6 +78,7 @@
 	</properties>
 
 	<dependencies>
+		<!--Test Dependencies-->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
