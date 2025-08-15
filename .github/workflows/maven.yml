@@ -36,6 +36,7 @@ jobs:
            restore-keys: ${{ runner.os }}-m2-
            
       # Build on Java 8
+      # Coveralls is not up (server returns 500) Removed for now
       - name: Build Maven with Coveralls (Java 8)
         if: matrix.java == 8
         run: xvfb-run mvn verify -Pjacoco jacoco:report -Pcoveralls -DrepoToken=$COVERALLS_REPO_TOKEN coveralls:report
@@ -43,12 +44,12 @@ jobs:
         env:
            COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
            
-      - name: Archive Jacoco HTML report
+      - name: Archive Jacoco report
         if: matrix.java == 8
         uses: actions/upload-artifact@v4
         with: 
-           name: jacoco-html-report-java8
-           path: inventory/target/site/jacoco/
+           name: jacoco-report-java8
+           path: inventory/target/site/jacoco/jacoco.xml
            
       #Build on Java 11
       - name: Build Maven with PIT Mutation testing and surefire report generation
