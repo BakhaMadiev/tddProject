@@ -209,6 +209,7 @@ public class LibrarySwingView extends JFrame implements BookView, AuthorView{
 						Thread.sleep(sleepMs);
 					}catch (InterruptedException ex) {
 						Thread.currentThread().interrupt();
+						return;
 					}
 					authorController.newAuthor(
 						new Author(

@@ -586,7 +586,7 @@ public class LibrarySwingViewTest extends AssertJSwingJUnitTestCase{
 		assertThat(swingView.lastAddAuthorThread).isNotNull();
 		swingView.lastAddAuthorThread.interrupt();
 		swingView.lastAddAuthorThread.join(TIMEOUT);
-		verify(authorController, timeout(TIMEOUT)).newAuthor(new Author("1", "Test Interrupt", "Test Interrupt"));
+		verify(authorController, never()).newAuthor(new Author("1", "Test Interrupt", "Test Interrupt"));
 	}
 	
 	@Test
